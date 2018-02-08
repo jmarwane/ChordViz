@@ -17,6 +17,7 @@ Dans un premier temps nous réfléchissions à se baser sur la théorie des grap
     </td>
   </tr>
 </table>
+
 Alors, vu les problèmes rencontrés par la première solutuion, nous arrivions à proposer un modèle pertinent qui répond judicieusement au cahier de charge de notre application.
 <table border="0">
   <tr>
