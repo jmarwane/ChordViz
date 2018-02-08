@@ -4,6 +4,19 @@ Dans le cadre des projet du MOS: Visualisation interactive des données, nous ch
 * sélection par artiste, chanson...
 * Possibilité de retrouver une chanson en sélectionnant une progression harmonique.
 </br>
+Dans un premier temps nous travaillions sur la base de données suivante:
+<table border="0">
+  <tr>
+    <td>
+      <img src="DB.JPG" style="width: 100px;">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      __ La base de données des chansons __
+    </td>
+  </tr>
+</table>
 Notre script D3.js consiste les fonctionnalités suivantes:
 
 - Déterminer une durée des transitions pour l'apparition / dispartition des lignes.
@@ -42,7 +55,7 @@ Notre script D3.js consiste les fonctionnalités suivantes:
   </tr>
   <tr>
     <td align="center">
-      --le résultat de notre script --
+      __le résultat de notre script__
     </td>
   </tr>
 </table>
