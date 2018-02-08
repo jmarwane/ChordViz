@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+  <style>
+    .unclickable {
+    pointer-events: none;
+		}
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+  </style>
+</head>
+<body>
+  <script>
+
+    
+d3.csv("songs_data.csv",function(data){
+
+  // La durée des transitions pour l'apparition / dispartition des lignes
+  var transition_duration = 600
+  
+  // Le nombre de chansons dans la base de données
+  var n_songs = data.length
+    
+  // Une variable qui retient la distance qu'on a scrollé sur l'axe horizontal
+  var x_scroll = 0
+    
+  // La plus petite opacité que peut avoir une ligne
+  var min_curves_opacity = 0.5
+    
+  // La largeur des lignes
+  var curves_width = 4
+    
+  // Renvoie le string correspondant à l'accord n°bar du morceau n°song
+  function get_chord(song,bar)
+  {
+    if (bar<9)
+    {
+      return(data[song]["Verse"+bar])
+    }
+		else
+    {
+      return(data[song]["Chorus"+(bar-8)])
+    }
+	}
+    
+  // Nombre maximal de mesures (si il est plus grand que le nombre de mesures de la plus grande chanson, c'est du gâchis parce que ça mettra des mesures vides à la fin, si il est plus petit les derniers accords ne seront pas affichés)
+  var MAX_BAR_ID = 16;
+    
+  // Largeur d'un des rectangles contenant un nom d'accord
+  var rectangle_width = 17;
+    
+  // Distances horizontale et verticale entre deux rectangles contenant un accord
+  var horizontal_padding = 50;
+  var vertical_padding = 3;
+    
+  // Largeur et hauteur du svg
+  var w = MAX_BAR_ID * (rectangle_width + horizontal_padding);
+  var h = 500;
+    
+  // Un array contenant les entiers de 1 à MAX_BAR_ID
+  var bars_id = Array(MAX_BAR_ID).fill().map((e,i)=>i+1);
+    
+  // Un array contenant les noms des accords les plus communs, "?" correspond aux autres accords
+  var chords = ["A","a","A#","a#","B","b","C","c","C#","c#","D","d","D#","d#","E","e","F","f","F#","f#","G","g","G#","g#"]
+    
+  // Le svg
+  var svg = d3.select("body").append("svg").attr("width",w).attr("height",h)
+		
+  // Les dimensions de la zone d'affichage sur le svg
+  var margin = {top: 20, right: 20, bottom: 30, left: 40}
+  var width = +svg.attr("width") - margin.left - margin.right
+  var height = +svg.attr("height") - margin.top - margin.bottom
+    
+  // Hauteur d'un des rectangles contenant un accord
+  var rectangle_height = -vertical_padding + height/chords.length;
+    
+  // Taille de la police de caractères
+  var font_size = rectangle_height - 4 ;
+    
+  // La variable qui gère le scrolling
+  var drag = d3.drag()
+    .subject({ x: 0, y: 0 })
+    .on("drag", function dragged() 
+  	{
+    	x_scroll += d3.event.dx
+      svg.selectAll("g").attr("transform", "translate("+x_scroll+",0)")
+		});  
+    
+  // Le background (cliquer dessus active le scrolling)
+  svg.append("rect")
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .attr("fill","white")
+    .on("click", function clicked(){if (d3.event.defaultPrevented) return;} )
+    .call(drag);
+  
+  // Des groupes d'éléments, bars[i] contient les rectangles contenant les noms des accords de la mesure i
+  var bars = new Array(MAX_BAR_ID)
+    for (i=0;i<MAX_BAR_ID;i++)
+    {
+      bars[i] = d3.select("svg").append("g")
+    }  
+  
+  // Les éléments sur lesquels on ne peut pas cliquer
+  var unclickable_elements = d3.select("svg").append("g").attr("class","unclickable")
+    
+  // Un objet d3 permettant de générer les courbes
+  var dacurve = {"d3Curve":d3.curveMonotoneX,"curveTitle":"curveMonotoneX"}
+    
+  // On créé des groupes d'éléments dans lesquels on va stocker les courbes de chaque chanson
+  var songs_curves = new Array(n_songs)
+  data.forEach(function(d,i)
+  {
+    songs_curves[i] = d3.select("svg").append("g")
+  })
+    
+  // On parcourt les chansons et on créé pour chaque chanson l'ensemble de ses courbes
+  data.forEach(function(d,i)
+  {
+    for (bar = 1; bar<8;bar++)
+    {
+      current_chord = get_chord(i,bar)
+      next_chord = get_chord(i,bar+1)
+      chord_id = chords.indexOf(current_chord)
+      next_chord_id = chords.indexOf(next_chord)
+      x = margin.left+(horizontal_padding+rectangle_width)*(bar-1)
+      y = margin.top+ (rectangle_height + vertical_padding) *  chord_id
+      y2 = margin.top+ (rectangle_height + vertical_padding) * next_chord_id
+      line_data = 
+            [{song_id: i,x:x+rectangle_width,y:y+rectangle_height/2},{song_id: i,x:x+rectangle_width+0.1*horizontal_padding,y:y+rectangle_height/2},
+            {song_id: i,x:x+rectangle_width+0.9*horizontal_padding,y:y2+rectangle_height/2},
+            {song_id: i,x:x+rectangle_width+horizontal_padding,y:y2+rectangle_height/2}]
+          a = min_curves_opacity + (1-n_songs/n_songs);
+          line = 
+          songs_curves[i].append("path")
+            .datum(line_data)
+            .attr("class", "line")
+            .attr("fill","none")
+            .style("stroke","rgba(255,0,0,"+a+")")
+            .style("stroke-width",curves_width)
+            .attr("d", d3.line()
+                         .curve(dacurve.d3Curve)
+                         .x(function(d) { return d["x"]; })
+                         .y(function(d) { return d["y"]; }))
+            .on("click",function(curve_data){})
+    }
+    for (bar = 9; bar<16;bar++)
+    {
+      current_chord = get_chord(i,bar)
+      next_chord = get_chord(i,bar+1)
+      chord_id = chords.indexOf(current_chord)
+      next_chord_id = chords.indexOf(next_chord)
+      x = margin.left+(horizontal_padding+rectangle_width)*(bar-1)
+      y = margin.top+ (rectangle_height + vertical_padding) *  chord_id
+      y2 = margin.top+ (rectangle_height + vertical_padding) * next_chord_id
+      line_data = 
+            [{song_id: i,x:x+rectangle_width,y:y+rectangle_height/2},{song_id: i,x:x+rectangle_width+0.1*horizontal_padding,y:y+rectangle_height/2},
+            {song_id: i,x:x+rectangle_width+0.9*horizontal_padding,y:y2+rectangle_height/2},
+            {song_id: i,x:x+rectangle_width+horizontal_padding,y:y2+rectangle_height/2}]
+          a = min_curves_opacity + (1-n_songs/n_songs);
+          line = 
+          songs_curves[i].append("path")
+            .datum(line_data)
+            .attr("class", "line")
+            .attr("fill","none")
+            .style("stroke","rgba(255,0,0,"+a+")")
+            .style("stroke-width",curves_width)
+            .attr("d", d3.line()
+                         .curve(dacurve.d3Curve)
+                         .x(function(d) { return d["x"]; })
+                         .y(function(d) { return d["y"]; }))
+            .on("click",function(curve_data){})
+    }
+    /*song_over = 0
+    bar = 0
+    while (song_over==0)
+    {
+      bar += 1
+      if (bar<MAX_BAR_ID)
+      {
+        current_chord = get_chord(i,bar)
+        next_chord = get_chord(i,bar+1)
+        if (next_chord == "end")
+        {
+          song_over = 1
+        }
+        else
+        {
+          chord_id = chords.indexOf(current_chord)
+          next_chord_id = chords.indexOf(next_chord)
+          if (chord_id<0)
+          {
+            chord_id = chords.length-1 
+          }
+          if (next_chord_id<0)
+          {
+            next_chord_id = chords.length-1 
+          }
+          x = margin.left+(horizontal_padding+rectangle_width)*(bar-1)
+          y = margin.top+ (rectangle_height + vertical_padding) *  chord_id
+          y2 = margin.top+ (rectangle_height + vertical_padding) * next_chord_id
+          line_data = 
+            [{song_id: i,x:x+rectangle_width,y:y+rectangle_height/2},                       					 				{song_id: i,x:x+rectangle_width+0.1*horizontal_padding,y:y+rectangle_height/2},
+            {song_id: i,x:x+rectangle_width+0.9*horizontal_padding,y:y2+rectangle_height/2},
+            {song_id: i,x:x+rectangle_width+horizontal_padding,y:y2+rectangle_height/2}]
+          a = min_curves_opacity + (1-n_songs/n_songs);
+          line = 
+          songs_curves[i].append("path")
+            .datum(line_data)
+            .attr("class", "line")
+            .attr("fill","none")
+            .style("stroke","rgba(255,0,0,"+a+")")
+           	.style("stroke-width",curves_width)
+            .attr("d", d3.line()
+                         .curve(dacurve.d3Curve)
+                         .x(function(d) { return d["x"]; })
+                         .y(function(d) { return d["y"]; }))
+            .on("click",function(curve_data){})
+        }
+      }
+      else
+      {
+        song_over = 1
+      }
+    }*/
+  })
+    
+  // On stocke les accords sur lesquels on a cliqué
+  var selected_chords = new Array(MAX_BAR_ID)
+  for (i=0;i<MAX_BAR_ID;i++)
+  {
+    selected_chords[i] = -1
+  }
+  
+  // Une fonction qui gère la mise à jour des courbes quand on sélectionne / déselectionne un accord
+  function update_curves()
+  {
+    n_curves = 0
+    for (i = 0;i<n_songs;i++)
+    {
+      n_curves += 1
+      songs_curves[i]
+        .transition()
+        .attr("opacity",1)
+        .duration(transition_duration)
+        .attr("class","")
+      for (j=0;j<MAX_BAR_ID;j++)
+      {
+        chord = get_chord(i,j+1)
+        if (chords.indexOf(chord)<0 && typeof chord != "undefined" && chord!="end" && chord != "" && chord!= " ")
+        {
+        	chord = "?"
+        }
+        if (selected_chords[j]>=0)
+        {
+          if(chord != chords[selected_chords[j]])
+        	{	
+            songs_curves[i]
+              .transition()
+              .attr("opacity",0)
+              .duration(transition_duration)
+              .attr("class","unclickable")
+            n_curves -= 1
+          }
+        }
+      }
+    }
+    for (i = 0;i<n_songs;i++)
+		{
+      a = min_curves_opacity + (1-n_curves/n_songs);
+ 			songs_curves[i]
+ 				.selectAll("path")
+        .transition()
+        .style("stroke","rgba(255,0,0,"+a+")")
+        .duration(transition_duration)
+    }
+  }
+  
+  
+    // On créé les carrés correspondant aux accords
+    chords.forEach(
+      function(c,i){
+        bars_id.forEach(function(b,j){
+          
+          var x = margin.left+(horizontal_padding+rectangle_width)*j
+          var y = margin.top+ (rectangle_height + vertical_padding) * i 
+          
+          if (i==0)
+            {
+             unclickable_elements.append("text")
+    				.attr("x", x+7)             
+    				.attr("y", margin.top-10)
+    				.attr("text-anchor", "middle")  
+          	.attr("dominant-baseline", "central")
+            .attr("fill", "red")
+    				.style("font-size", font_size+3)
+    				.text((j+1));
+            }
+          
+          var rect_data = [{chord: i,bar: j}]
+          
+          // On affiche le nom de l'accord
+          unclickable_elements.append("text")
+    				.attr("x", (x+rectangle_width/2))             
+    				.attr("y", (y+rectangle_height/2))
+    				.attr("text-anchor", "middle")  
+          	.attr("dominant-baseline", "central")
+    				.style("font-size", font_size)
+    				.text(c);
+          	
+          	// On créé un rectangle transparent au dessus du texte 
+            bars[j].append('rect')
+            .attr("x",x)
+            .attr("y",y)
+            .attr("width",rectangle_width)
+            .attr("height",rectangle_height)
+            .attr("fill","rgba(255,255,255,0)")
+            .attr("stroke","black")
+            .data(rect_data)
+            .on("click",function(d){
+                bars[j].selectAll("rect").each(function(dr)
+                {
+                  if (dr["chord"]!=d["chord"])
+                    {
+                      d3.select(this).attr("fill","rgba(255,255,255,0)")
+                      .attr("stroke","black")
+                    }
+                })
+                if(selected_chords[j]!=d["chord"])
+                  {
+                  d3.select(this).attr("fill","rgba(255,255,0,0.25)")
+                  .attr("stroke","red")
+                  selected_chords[j] = d["chord"]
+                  }
+                else
+                  {
+                  d3.select(this).attr("fill","rgba(255,255,255,0)")
+                  .attr("stroke","black")
+                  selected_chords[j] = -1
+                  }
+                
+            update_curves()
+            
+            });
+          		
+         })
+      })
+   
+   });
+  </script>
+</body>
