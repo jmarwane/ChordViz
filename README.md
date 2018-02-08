@@ -8,7 +8,7 @@ Dans un premier temps nous réfléchissions à se baser sur la théorie des grap
 <table border="0">
   <tr>
     <td>
-      <img src="11.JPG" style="width: 100px;">
+      <img src="11.jpg" style="width: 100px;">
     </td>
   </tr>
   <tr>
@@ -22,7 +22,7 @@ Alors, vu les problèmes rencontrés par la première solutuion, nous arrivions 
 <table border="0">
   <tr>
     <td>
-      <img src="33.JPG" style="width: 100px;">
+      <img src="33.jpg" style="width: 100px;">
     </td>
   </tr>
   <tr>
@@ -35,7 +35,7 @@ Alors, vu les problèmes rencontrés par la première solutuion, nous arrivions 
 <table border="0">
   <tr>
     <td>
-      <img src="22.JPG" style="width: 100px;">
+      <img src="22.jpg" style="width: 100px;">
     </td>
   </tr>
   <tr>
