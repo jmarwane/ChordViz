@@ -4,6 +4,45 @@ Dans le cadre des projet du MOS: Visualisation interactive des données, nous ch
 * sélection par artiste, chanson...
 * Possibilité de retrouver une chanson en sélectionnant une progression harmonique.
 </br>
+Dans un premier temps nous réfléchissions à se baser sur la théorie des graphes pour visualiser l'enchaînement d'accords d'un certain nombre de chansons dans la base de données que nous choisissions. Mais cela présente un problème d'ordre des accords et une collision  entre eux comme le montre la figure ci-dessous, alors la personne n'arrivera pas d'pprendre la bonne chanson.
+<table border="0">
+  <tr>
+    <td>
+      <img src="11.JPG" style="width: 100px;">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <h6> Graphe d'enchainement des accords </h6>
+    </td>
+  </tr>
+</table>
+Alors, vu les problèmes rencontrés par la première solutuion, nous arrivions à proposer un modèle pertinent qui répond judicieusement au cahier de charge de notre application.
+<table border="0">
+  <tr>
+    <td>
+      <img src="33.JPG" style="width: 100px;">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <h6> visualisation d'enchainement des accords à l'aide des réctangles </h6>
+    </td>
+  </tr>
+</table>
+
+<table border="0">
+  <tr>
+    <td>
+      <img src="22.JPG" style="width: 100px;">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <h6> Les opérations proposées </h6>
+    </td>
+  </tr>
+</table>
 Dans un premier temps nous travaillions sur la base de données suivante:
 <table border="0">
   <tr>
@@ -55,7 +94,8 @@ Notre script D3.js consiste les fonctionnalités suivantes:
   </tr>
   <tr>
     <td align="center">
-      <h6> le résultat de notre script </h6>
+      <h6> le résultat de notre script D3.js </h6>
     </td>
   </tr>
 </table>
+
