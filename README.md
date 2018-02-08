@@ -13,7 +13,7 @@ Dans un premier temps nous travaillions sur la base de données suivante:
   </tr>
   <tr>
     <td align="center">
-      <h3> La base de données des chansons </h3>
+      <h5> La base de données des chansons </h5>
     </td>
   </tr>
 </table>
@@ -55,7 +55,7 @@ Notre script D3.js consiste les fonctionnalités suivantes:
   </tr>
   <tr>
     <td align="center">
-      <h3> le résultat de notre script </h3>
+      <h5> le résultat de notre script </h5>
     </td>
   </tr>
 </table>
