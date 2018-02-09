@@ -1,7 +1,9 @@
 # ChordViz:
 #### Projer réalisé par:
 DIERS Antoine
+
 EL IDRISSI Imane
+
 Jebbari Marwane
 </br>
 ## Dataviz course project : visualization of chord progressions in music
