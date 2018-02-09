@@ -3,7 +3,7 @@
 Dans le cadre des projet du MOS: Visualisation interactive des données, nous choisissions le projet intitulé: __Visualisation de l'enchaînement d'accords d'un certain nombre de chansons:__
 * sélection par artiste, chanson...
 * Possibilité de retrouver une chanson en sélectionnant une progression harmonique.
-</br>
+
 Dans un premier temps nous réfléchissions à se baser sur la théorie des graphes pour visualiser l'enchaînement d'accords d'un certain nombre de chansons dans la base de données que nous choisissions. Mais cela présente un problème d'ordre des accords et une collision  entre eux comme le montre la figure ci-dessous, alors la personne n'arrivera pas d'pprendre la bonne chanson.
 <table border="0">
   <tr>
@@ -18,7 +18,7 @@ Dans un premier temps nous réfléchissions à se baser sur la théorie des grap
   </tr>
 </table>
 
-Alors, vu les problèmes rencontrés par la première solutuion, nous arrivions à proposer un modèle pertinent qui répond judicieusement au cahier de charge de notre application.
+Alors, vu les problèmes rencontrés par la première solution, nous arrivions à proposer un modèle pertinent qui répond judicieusement aux exigences du cahier des charges de notre application.
 <table border="0">
   <tr>
     <td>
