@@ -11,7 +11,7 @@ Dans le cadre des projets du MOS: Visualisation interactive des données, nous c
 * sélection par artiste, chanson...
 * Possibilité de retrouver une chanson en sélectionnant une progression harmonique.
 
-Dans un premier temps, nous réfléchissions à se baser sur la théorie des graphes pour visualiser l'enchaînement d'accords d'un certain nombre de chansons dans la base de données que nous choisissions. Mais cela présente un problème d'ordre des accords et une collision  entre eux comme le montre la figure ci-dessous, alors la personne n'arrivera pas de jouer la bonne chanson ainsi que nous aurons un chevechement dans les gammes des chonsons selectionnées.
+Dans un premier temps, nous réfléchissions à se baser sur la théorie des graphes pour visualiser l'enchaînement d'accords d'un certain nombre de chansons dans la base de données que nous choisissions. Mais cela présente un problème d'ordre des accords et une collision  entre eux comme le montre la figure ci-dessous, alors la personne n'arrivera pas de jouer la bonne chanson ainsi que nous aurons un chevauchement dans les gammes des chonsons selectionnées.
 <table border="0">
   <tr>
     <td>
