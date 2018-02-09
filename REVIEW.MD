@@ -1,14 +1,14 @@
-# le Projet à évaluer:
+## le Projet à évaluer:
 
 Group to review : [Consoelec](https://github.com/hichamelhady/ConsoElec)
 
-# Les commentaires:
+## Les commentaires:
 
-# Les méthodes de visualisation:
+## Les méthodes de visualisation:
 
-# Comment ça marche?
+## Comment ça marche?
 
-# Questions: 
+## Questions: 
  <ls> 
- <lo> & bkj</lo>
+ 1 . 
  </ls>
