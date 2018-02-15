@@ -26,7 +26,7 @@ d3.csv("songs_data.csv",function(data){
   var x_scroll = 0
     
   // La plus petite opacité que peut avoir une ligne
-  var min_curves_opacity = 0.5
+  var min_curves_opacity = 0.2
     
   // La largeur des lignes
   var curves_width = 4
@@ -48,7 +48,7 @@ d3.csv("songs_data.csv",function(data){
   var MAX_BAR_ID = 16;
     
   // Largeur d'un des rectangles contenant un nom d'accord
-  var rectangle_width = 17;
+  var rectangle_width = 20;
     
   // Distances horizontale et verticale entre deux rectangles contenant un accord
   var horizontal_padding = 50;
@@ -56,7 +56,7 @@ d3.csv("songs_data.csv",function(data){
     
   // Largeur et hauteur du svg
   var w = MAX_BAR_ID * (rectangle_width + horizontal_padding);
-  var h = 500;
+  var h = 600;
     
   // Un array contenant les entiers de 1 à MAX_BAR_ID
   var bars_id = Array(MAX_BAR_ID).fill().map((e,i)=>i+1);
@@ -66,9 +66,9 @@ d3.csv("songs_data.csv",function(data){
     
   // Le svg
   var svg = d3.select("body").append("svg").attr("width",w).attr("height",h)
-		
+
   // Les dimensions de la zone d'affichage sur le svg
-  var margin = {top: 20, right: 20, bottom: 30, left: 40}
+  var margin = {top: 20, right: 20, bottom: 30, left: 20}
   var width = +svg.attr("width") - margin.left - margin.right
   var height = +svg.attr("height") - margin.top - margin.bottom
     
