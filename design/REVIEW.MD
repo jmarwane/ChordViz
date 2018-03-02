@@ -12,11 +12,11 @@ Il y a 3 façons de visualisation:
 - un geo map qui serve à visualiser la consommation annuelle
 ## Les commentaires et remarques:
  <ls> 
- '''1 .''' Veuillez faire la visualisation des données en fonctions des années, des mois et des semaines.
+ __1 .__ Veuillez faire la visualisation des données en fonctions des années, des mois et des semaines.
  </br>
- '''2 .''' Vous avez travailler avec une base de données qui contient que les données concernant la consommation de l'énergie électrique pour l'année 2006.
+ __2 .__ Vous avez travailler avec une base de données qui contient que les données concernant la consommation de l'énergie électrique pour l'année 2006.
   </br>
- '''3 .''' Afin d'uliliser une Grande base de donneés, vous pouvez ajouter assez de filtre pour arriver à une bonne visualisation.
+ __3 .__ Afin d'uliliser une Grande base de donneés, vous pouvez ajouter assez de filtre pour arriver à une bonne visualisation.
   </br>
- '''4 .''' Comme un point d'amélioration, vous pouvez ajouter un graphe qui visualise l'évolution de la consommation de l'énergie éléctrique en fonction des années en intégrant les facteurs saisonniers.
+ __4 .__ Comme un point d'amélioration, vous pouvez ajouter un graphe qui visualise l'évolution de la consommation de l'énergie éléctrique en fonction des années en intégrant les facteurs saisonniers.
  </ls>
