@@ -63,12 +63,14 @@ arg = extractUrlParams();
 if(arg['d'] == 2){
   var ddd = 'data_clean_no7.csv';
   var chords = ['A', 'A#', 'A-', 'B', 'B#', 'B-', 'C', 'C#', 'C-', 'D', 'D#', 'D-', 'E', 'E#', 'E-', 'F', 'F#', 'G', 'G#', 'G-']
-  var min_curves_opacity = 0.05
+  var min_curves_opacity = 0.05;
+  var mince_font = 10;
 }
 else{
   var ddd = 'data.csv';
   var chords = ["A", "a", "A#", "a#", "B", "b", "C", "c", "C#", "c#", "D", "d", "D#", "d#", "E", "e", "F", "f", "F#", "f#", "G", "g", "G#", "g#"];
   var min_curves_opacity = 0.2
+  var mince_font = 4;
 }
 d3.csv(ddd,function(data){
 
@@ -138,7 +140,7 @@ d3.csv(ddd,function(data){
   var rectangle_height = -vertical_padding + diagram_height_ratio*height/chords.length;
     
   // Taille de la police de caractères
-  var font_size = rectangle_height - 4 ;
+  var font_size = rectangle_height - mince_font ;
     
   var boxes_color = "black"
   var boxes_border_width = 2  
