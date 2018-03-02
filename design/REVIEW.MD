@@ -8,7 +8,7 @@ Visualisation des données de la consommation annuelle de l'énergie électrique
 Les données utilisées sont des données de consommations de l'énergie électriques en France et cela en fonction des régions et des secteurs d'activités.
 Il y a 3 façons de visualisation:
 - Un sankey diagram qui permet la représentation des flux
-- Un radar chart
+- Un radar chart qui permet d'afficher la consommation moyenne d'energie par chaque unité: par exemlpe dans le secteur de l'industrie, il serve à calculer la moyenne de tous les sites et pour voir le total, il faut multiplier par le nombre de sites, le residentiel... 
 - un geo map qui serve à visualiser la consommation annuelle
 ## Les commentaires et remarques:
  <ls> 
