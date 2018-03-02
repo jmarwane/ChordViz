@@ -49,8 +49,28 @@
 <body>
   <script>
 
-    
-d3.csv("data.csv",function(data){
+function extractUrlParams() {
+  var t = location.search.substring(1).split('&');
+  var f = [];
+  for (var i = 0; i < t.length; i++) {
+    var x = t[i].split('=');
+    f[x[0]] = x[1];
+  }
+  return f;
+}
+
+arg = extractUrlParams();
+if(arg['d'] == 2){
+  var ddd = 'data_clean_no7.csv';
+  var chords = ['A', 'A#', 'A-', 'B', 'B#', 'B-', 'C', 'C#', 'C-', 'D', 'D#', 'D-', 'E', 'E#', 'E-', 'F', 'F#', 'G', 'G#', 'G-']
+  var min_curves_opacity = 0.05
+}
+else{
+  var ddd = 'data.csv';
+  var chords = ["A", "a", "A#", "a#", "B", "b", "C", "c", "C#", "c#", "D", "d", "D#", "d#", "E", "e", "F", "f", "F#", "f#", "G", "g", "G#", "g#"];
+  var min_curves_opacity = 0.2
+}
+d3.csv(ddd,function(data){
 
   console.log(data)
 
@@ -65,7 +85,7 @@ d3.csv("data.csv",function(data){
   var n_songs = data.length
     
   // La plus petite opacité que peut avoir une ligne
-  var min_curves_opacity = 0.2
+  //var min_curves_opacity = 0.05
   var curves_opacity = min_curves_opacity
     
   // La largeur des lignes
@@ -84,10 +104,6 @@ d3.csv("data.csv",function(data){
     }
 	}
     
-    
-  
-
-    
   
     
   // Largeur et hauteur du svg
@@ -98,8 +114,8 @@ d3.csv("data.csv",function(data){
   var bars_id = Array(16).fill().map((e,i)=>i+1);
     
   // Un array contenant les noms des accords les plus communs, "?" correspond aux autres accords
-  var chords = ["A","a","A#","a#","B","b","C","c","C#","c#","D","d","D#","d#","E","e","F","f","F#","f#","G","g","G#","g#"]
-    
+  // var chords = ["A","a","A#","a#","B","b","C","c","C#","c#","D","d","D#","d#","E","e","F","f","F#","f#","G","g","G#","g#"]
+  //var chords = ['A', 'A#', 'A-', 'B', 'B#', 'B-', 'C', 'C#', 'C-', 'D', 'D#', 'D-', 'E', 'E#', 'E-', 'F', 'F#', 'G', 'G#', 'G-']
   // Le svg
   var svg = d3.select("body").append("svg").attr("width",w).attr("height",h)
 
@@ -122,7 +138,7 @@ d3.csv("data.csv",function(data){
   var rectangle_height = -vertical_padding + diagram_height_ratio*height/chords.length;
     
   // Taille de la police de caractères
-  var font_size = rectangle_height - 4 ;
+  var font_size = rectangle_height - 10 ;
     
   var boxes_color = "black"
   var boxes_border_width = 2  
@@ -487,7 +503,7 @@ d3.csv("data.csv",function(data){
               songs_curves[songs_id[l]]
               .selectAll("path")
               .transition()
-              .style("stroke-opacity",1)
+              .style("stroke-opacity",3)
               .style("stroke",select_color)
               .duration(transition_duration)
               d3.select(this).attr("fill-opacity",0.3)
