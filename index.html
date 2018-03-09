@@ -63,7 +63,7 @@ arg = extractUrlParams();
 if(arg['d'] == 2){
   var ddd = 'data_clean_no7.csv';
   var chords = ['A', 'A#', 'A-', 'B', 'B#', 'B-', 'C', 'C#', 'C-', 'D', 'D#', 'D-', 'E', 'E#', 'E-', 'F', 'F#', 'G', 'G#', 'G-']
-  var min_curves_opacity = 0.005;
+  var min_curves_opacity = 0.05;
   var mince_font = 10;
 }
 else{
@@ -694,7 +694,7 @@ d3.csv(ddd,function(data){
         bars_id.forEach(function(b,j){
           
           var x = margin.left+(horizontal_padding+rectangle_width)*j
-          var y = margin.top + (1-diagram_height_ratio)*height + (rectangle_height + vertical_padding) * i/2 + (j>7)*h/2
+          var y = margin.top + (1-diagram_height_ratio)*height + (rectangle_height + vertical_padding) * i
           var rect_data = [{chord: i,bar: j}]
           
           // On affiche le nom de l'accord
