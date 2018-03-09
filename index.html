@@ -445,7 +445,7 @@ d3.csv(ddd,function(data){
 
   var songs_id = new Array(n_valid_songs)
 
-  function display_selected_songs()
+  function display_valid_songs()
   {
     x = 10
     y = 0
@@ -517,7 +517,7 @@ d3.csv(ddd,function(data){
     }
   };
 
-  display_selected_songs()
+  display_valid_songs()
 
   
   
@@ -570,7 +570,7 @@ d3.csv(ddd,function(data){
             }
             selected_song = -1
             update_valid_songs()
-            display_selected_songs()
+            display_valid_songs()
             update_curves()
           })
         y = y+20
@@ -740,7 +740,7 @@ d3.csv(ddd,function(data){
                 
             update_valid_songs()
             update_curves()
-            display_selected_songs()
+            display_valid_songs()
             
             });
           		
