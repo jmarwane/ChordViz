@@ -16,9 +16,15 @@ Nous avons utilisé une base de données au format csv contenant les colonnes su
 
 Nous avons créé nous-même cette base de données à partir du site [hooktheory](https://www.hooktheory.com/theorytab) 
 
-## Organisation de la page
+## Organisation des éléments
 
-_**`A REDIGER QUAND LES BOITES DES CHANSONS ET DES ARTISTES SERONT EN HTML ET PLUS DES SVG`**_
+La page contient plusieurs groupes d'éléments:
+
+* __unclickable_elements :__ Ce groupe contient les éléments sur lesquels on ne peut pas cliquer (utile pour pouvoir cliquer sur un élément qui est en background) 
+* __un groupe pour chaque mesure :__ ces groupes contiennent les carrés clickables de chaque mesure 
+* __un groupe de courbes pour chaque chanson__
+* __songs_group :__ Ce groupe contient les rectangles et les textes représentant les titres des chansons dans la fenêtre "songs" en haut à droite
+* __artists_group :__ Ce groupe contient les rectangles et les textes représentant les noms des interprètes dans la fenêtre "artists" en bas à droite
 
 ## Interractions possibles et gestion des interactions
 
