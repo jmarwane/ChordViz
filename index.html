@@ -694,7 +694,7 @@ d3.csv(ddd,function(data){
         bars_id.forEach(function(b,j){
           
           var x = margin.left+(horizontal_padding+rectangle_width)*j
-          var y = margin.top + (1-diagram_height_ratio)*height + (rectangle_height + vertical_padding) * i 
+          var y = margin.top + (1-diagram_height_ratio)*height + (rectangle_height + vertical_padding) * i/2 + (j>7)*h/2
           var rect_data = [{chord: i,bar: j}]
           
           // On affiche le nom de l'accord
