@@ -159,17 +159,17 @@ In order to decide which songs are valid, it updates the global variable __valid
 * __display_valid_songs :__ This function uses the __valid_songs__ array to show only songs that are valid in the "songs" window (top right).
 
 * __update_curves :__ This function uses the __valid_songs__ array to display only the curves of songs that are valid.
-
 <table border="0">
   <tr>
     <td>
-      <img src="FirstViz.jpg" style="width: 100px;">
+      <img src="FirstViz.png" style="width: 100px;">
     </td>
   </tr>
   <tr>
     <td align="center">
-      <h6> Chain graph of chords </h6>
+      <h6> The first visualization </h6>
     </td>
   </tr>
 </table>
+
 
