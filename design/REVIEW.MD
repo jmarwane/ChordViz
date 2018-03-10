@@ -6,6 +6,7 @@ Visualization of annual energy consumption data _ data source: ENEDIS
 
 ## Visualization methods :
 The data used are data on the consumption of electricity in France, according to the regions and sectors of activity.
+
 There are 3 ways of viewing:
 - A sankey diagram that allows the representation of flows.
 - A radar chart that displays the average energy consumption by each unit: for example in the industry sector, it is used to calculate the average of all the sites and to see the total, it is necessary to multiply by the number of sites, the residential ...
