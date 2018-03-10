@@ -58,8 +58,30 @@
 <body>
   <script>
 
-    
-d3.csv("data.csv",function(data){
+function extractUrlParams() {
+  var t = location.search.substring(1).split('&');
+  var f = [];
+  for (var i = 0; i < t.length; i++) {
+    var x = t[i].split('=');
+    f[x[0]] = x[1];
+  }
+  return f;
+}
+
+arg = extractUrlParams();
+if(arg['d'] == 2){
+  var ddd = 'data_clean_no7.csv';
+  var chords = ['A', 'A#', 'A-', 'B', 'B#', 'B-', 'C', 'C#', 'C-', 'D', 'D#', 'D-', 'E', 'E#', 'E-', 'F', 'F#', 'G', 'G#', 'G-']
+  var min_curves_opacity = 0.05;
+  var mince_font = 10;
+}
+else{
+  var ddd = 'data.csv';
+  var chords = ["A", "a", "A#", "a#", "B", "b", "C", "c", "C#", "c#", "D", "d", "D#", "d#", "E", "e", "F", "f", "F#", "f#", "G", "g", "G#", "g#"];
+  var min_curves_opacity = 0.2
+  var mince_font = 4;
+}
+d3.csv(ddd,function(data){
 
   console.log(data)
 
@@ -74,7 +96,7 @@ d3.csv("data.csv",function(data){
   var n_songs = data.length
     
   // La plus petite opacité que peut avoir une ligne
-  var min_curves_opacity = 0.2
+  //var min_curves_opacity = 0.05
   var curves_opacity = min_curves_opacity
     
   // La largeur des lignes
@@ -93,22 +115,18 @@ d3.csv("data.csv",function(data){
     }
 	}
     
-    
-  
-
-    
   
     
   // Largeur et hauteur du svg
-  var w = 1300;
-  var h = 600;
+  var w = 1100;
+  var h = 700;
     
   // Un array contenant les entiers de 1 à 16
   var bars_id = Array(16).fill().map((e,i)=>i+1);
     
   // Un array contenant les noms des accords les plus communs, "?" correspond aux autres accords
-  var chords = ["A","a","A#","a#","B","b","C","c","C#","c#","D","d","D#","d#","E","e","F","f","F#","f#","G","g","G#","g#"]
-    
+  // var chords = ["A","a","A#","a#","B","b","C","c","C#","c#","D","d","D#","d#","E","e","F","f","F#","f#","G","g","G#","g#"]
+  //var chords = ['A', 'A#', 'A-', 'B', 'B#', 'B-', 'C', 'C#', 'C-', 'D', 'D#', 'D-', 'E', 'E#', 'E-', 'F', 'F#', 'G', 'G#', 'G-']
   // Le svg
   var svg = d3.select("body").append("svg").attr("width",w).attr("height",h)
 
@@ -131,7 +149,7 @@ d3.csv("data.csv",function(data){
   var rectangle_height = -vertical_padding + diagram_height_ratio*height/chords.length;
     
   // Taille de la police de caractères
-  var font_size = rectangle_height - 4 ;
+  var font_size = rectangle_height - mince_font ;
     
   var boxes_color = "blue"
   var boxes_border_width = 2  
@@ -450,7 +468,7 @@ d3.csv("data.csv",function(data){
 
   var songs_id = new Array(n_valid_songs)
 
-  function display_selected_songs()
+  function display_valid_songs()
   {
     x = 10
     y = 0
@@ -510,7 +528,7 @@ d3.csv("data.csv",function(data){
               songs_curves[songs_id[l]]
               .selectAll("path")
               .transition()
-              .style("stroke-opacity",1)
+              .style("stroke-opacity",3)
               .style("stroke",select_color)
               .duration(transition_duration)
               d3.select(this).attr("fill-opacity",0.3)
@@ -522,7 +540,7 @@ d3.csv("data.csv",function(data){
     }
   };
 
-  display_selected_songs()
+  display_valid_songs()
 
   
   
@@ -575,7 +593,7 @@ d3.csv("data.csv",function(data){
             }
             selected_song = -1
             update_valid_songs()
-            display_selected_songs()
+            display_valid_songs()
             update_curves()
           })
         y = y+20
@@ -699,7 +717,7 @@ d3.csv("data.csv",function(data){
         bars_id.forEach(function(b,j){
           
           var x = margin.left+(horizontal_padding+rectangle_width)*j
-          var y = margin.top + (1-diagram_height_ratio)*height + (rectangle_height + vertical_padding) * i 
+          var y = margin.top + (1-diagram_height_ratio)*height + (rectangle_height + vertical_padding) * i
           var rect_data = [{chord: i,bar: j}]
           
           // On affiche le nom de l'accord
@@ -745,7 +763,7 @@ d3.csv("data.csv",function(data){
                 
             update_valid_songs()
             update_curves()
-            display_selected_songs()
+            display_valid_songs()
             
             });
           		
