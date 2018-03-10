@@ -1,17 +1,18 @@
 # ChordViz:
-#### Projer réalisé par:
-DIERS Antoine
+#### Project made by:
+__DIERS Antoine__
 
-EL IDRISSI Imane
+__EL IDRISSI Imane__
 
-Jebbari Marwane
+__Jebbari Marwane__
 </br>
 ## Dataviz course project : visualization of chord progressions in music
-Dans le cadre des projets du MOS: Visualisation interactive des données, nous choisissions le projet intitulé: __Visualisation de l'enchaînement d'accords d'un certain nombre de chansons:__
-* sélection par artiste, chanson...
-* Possibilité de retrouver une chanson en sélectionnant une progression harmonique.
+As part of the MOS projects: Interactive visualization of data, we chose the project entitled: __Visualization of the sequence of chords of a number of songs:__
 
-Dans un premier temps, nous réfléchissions à se baser sur la théorie des graphes pour visualiser l'enchaînement d'accords d'un certain nombre de chansons dans la base de données que nous choisissions. Mais cela présente un problème d'ordre des accords et une collision  entre eux comme le montre la figure ci-dessous, alors la personne n'arrivera pas de jouer la bonne chanson ainsi que nous aurons un chevauchement dans les gammes des chonsons selectionnées.
+* selection by artist, song ...
+* Ability to find a song by selecting a harmonic progression.
+
+At first, we were thinking about relying on graph theory to visualize the sequence of chords of a certain number of songs in the database we choose. But this presents a problem of the order of the chords and a collision between them as shown in the figure below, then the person will not manage to play the good song as well as we will have an overlap in the ranges of selected chonsons.
 <table border="0">
   <tr>
     <td>
@@ -20,12 +21,13 @@ Dans un premier temps, nous réfléchissions à se baser sur la théorie des gra
   </tr>
   <tr>
     <td align="center">
-      <h6> Graphe d'enchainement des accords </h6>
+      <h6> Chain graph of chords </h6>
     </td>
   </tr>
 </table>
 
-Alors, vu les problèmes rencontrés par la première solution, nous arrivions à proposer un modèle pertinent qui répond judicieusement aux exigences du cahier des charges de notre application.
+So, given the problems encountered by the first solution, we managed to propose a relevant model that meets the requirements of the specifications of our application.
+
 <table border="0">
   <tr>
     <td>
@@ -34,7 +36,7 @@ Alors, vu les problèmes rencontrés par la première solution, nous arrivions �
   </tr>
   <tr>
     <td align="center">
-      <h6> visualisation d'enchainement des accords à l'aide des réctangles </h6>
+      <h6> visualization of a sequence of chords using rectangles </h6>
     </td>
   </tr>
 </table>
@@ -47,11 +49,11 @@ Alors, vu les problèmes rencontrés par la première solution, nous arrivions �
   </tr>
   <tr>
     <td align="center">
-      <h6> Les opérations proposées </h6>
+      <h6> Proposed operations </h6>
     </td>
   </tr>
 </table>
-Dans un premier temps nous travaillions sur la base de données suivante:
+At first, we worked on the following database:
 <table border="0">
   <tr>
     <td>
@@ -60,40 +62,39 @@ Dans un premier temps nous travaillions sur la base de données suivante:
   </tr>
   <tr>
     <td align="center">
-      <h6> La base de données des chansons </h6>
+      <h6> The database of songs </h6>
     </td>
   </tr>
 </table>
-Notre script D3.js consiste les fonctionnalités suivantes:
+Our D3.js script consists of the following features:
 
-- Déterminer une durée des transitions pour l'apparition / dispartition des lignes.
+- Determine a duration of transitions for the appearance / dispartition of lines.
 
-- Déterminer le nombre de chansons dans la base de données.
+- Determine the number of songs in the database.
 
-- Déterminer la plus petite opacité que peut avoir une ligne et La largeur des lignes.
+- Determine the smallest opacity that can have a line and the width of the lines.
 
-- Renvoier le string correspondant à l'accord n°bar du morceau n°song.
+- Send the string corresponding to the chord no. Bar of the song n ° song.
 
-- Nombre maximal de mesures (si il est plus grand que le nombre de mesures de la plus grande chanson, c'est du gâchis parce que ça mettra des mesures vides à la fin, si il est plus petit les derniers accords ne seront pas affichés).
+- Maximum number of measures (if it is larger than the number of measures of the biggest song, it's a mess because it will put empty measures at the end, if it is smaller the last chords will not be displayed ).
 
-- Déterminer la largeur d'un des rectangles contenant un nom d'accord, les distances horizontale, la verticale entre deux rectangles contenant un accord et la Largeur et la hauteur du svg.
+- Determine the width of one of the rectangles containing a chord name, the horizontal distances, the vertical between two rectangles containing a chord and the Width and height of the svg.
 
-- Déterminer une liste qui contient les entiers de 1 à MAX_BAR_ID, et une autre liste contenant les noms des accords les plus communs, "?" correspond aux autres accords.
+- Determine a list that contains the integers from 1 to MAX_BAR_ID, and another list containing the most common chord names, "?" corresponds to the other agreements.
 
-- Déterminer les dimensions de la zone d'affichage sur le svg, la hauteur d'un des rectangles contenant un accord, et la taille de la police de caractères.
+- Determine the dimensions of the display area on the svg, the height of one of the rectangles containing a chord, and the size of the font.
 
-- La gestion du scrolling.
+- The management of scrolling.
 
-- Déterminer des groupes d'éléments, bars[i] contient les rectangles contenant les noms des accords de la mesure i. Ainsi que les éléments sur lesquels on ne peut pas cliquer.
+- Determine groups of elements, bars [i] contains the rectangles containing the chord names of measure i. As well as the elements on which we can not click.
 
-- Définition d'unn objet d3 permettant de générer les courbes.
+- Definition of an object d3 allowing to generate the curves.
 
-- La création des groupes d'éléments dans lesquels on va stocker les courbes de chaque chanson.
+- The creation of groups of elements in which we will store the curves of each song.
 
-- Parcourir les chansons et créer pour chaque chanson l'ensemble de ses courbes.
+- Browse the songs and create for each song all of its curves.
 
-- Implémentation d'une fonction qui gère la mise à jour des courbes quand on sélectionne / déselectionne un accord.
-
+- Implementation of a function that manages the update of the curves when one selects / deselects a chord.
 <table border="0">
   <tr>
     <td>
@@ -102,17 +103,12 @@ Notre script D3.js consiste les fonctionnalités suivantes:
   </tr>
   <tr>
     <td align="center">
-      <h6> le résultat de notre script D3.js </h6>
+      <h6> the result of our script D3.js </h6>
     </td>
   </tr>
 </table>
 
-## Le lien ci-dessous, représente notre script en D3.js sur le blockbuilder:
-
--  https://bl.ocks.org/AntoineDiers/8c61a94e1a36de2485f7702ac7576373
-# Rapport Technique
-
-## Data Base:
+## Description of our new Data Base:
 
 We used a csv database containing the following columns : 
 
