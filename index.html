@@ -4,18 +4,26 @@
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
   <style>
+    .cerc {
+      stroke-width: 8px;
+      stroke: #80ced6;
+    }
+
     .unclickable {
     pointer-events: none;
+    background-color:#fefbd8;
 		}
 
     .ticks {
       font: 10px sans-serif;
+    }
     }
 
     .track,
     .track-inset,
     .track-overlay {
       stroke-linecap: round;
+    }
     }
 
     .track {
@@ -38,9 +46,10 @@
 
     .handle {
       fill: #fff;
-      stroke: #000;
+      stroke: #80ced6;
       stroke-opacity: 0.5;
-      stroke-width: 1.25px;
+      stroke-width: 2px;
+    }
     }
 
     body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
@@ -56,7 +65,7 @@ d3.csv("data.csv",function(data){
 
   var background_color = "pink"
   var select_color = "red"
-  var curves_color = "#6290C8"
+  var curves_color = "#6292C8"
 
   // La durée des transitions pour l'apparition / dispartition des lignes
   var transition_duration = 600
@@ -124,7 +133,7 @@ d3.csv("data.csv",function(data){
   // Taille de la police de caractères
   var font_size = rectangle_height - 4 ;
     
-  var boxes_color = "black"
+  var boxes_color = "blue"
   var boxes_border_width = 2  
 
   // Le background
@@ -132,7 +141,7 @@ d3.csv("data.csv",function(data){
     .attr("width", "100%")
     .attr("height", "100%")
     .attr("fill-opacity",0)
-    .attr("stroke","black")
+    .attr("stroke","blue")
 
   var boxes_width_1 = width*diagram_width_ratio/2+(margin.left-horizontal_padding)/2
   var boxes_height_1 = height*diagram_height_ratio+rectangle_height
@@ -147,75 +156,86 @@ d3.csv("data.csv",function(data){
     .attr("height", boxes_height_1)
     .attr("x",boxes_x_1)
     .attr("y",boxes_y_1)
+    .attr("class","cerc")
     .attr("stroke-width",boxes_border_width)
     .attr("fill-opacity",0)
-    .attr("stroke",boxes_color)
+    .attr("stroke","blue");
+
   
   svg.append("rect")
     .attr("width", boxes_width_1)
     .attr("height", boxes_height_1)
     .attr("x",boxes_x_2)
     .attr("y",boxes_y_1)
+    .attr("class","cerc")
     .attr("stroke-width",boxes_border_width)
     .attr("fill-opacity",0)
-    .attr("stroke",boxes_color)
+    .attr("stroke","blue");
 
   svg.append("rect")
     .attr("width", boxes_width_1)
     .attr("height", boxes_height_2)
     .attr("x",boxes_x_1)
     .attr("y",boxes_y_2)
+    .attr("class","cerc")
     .attr("stroke-width",boxes_border_width)
     .attr("fill-opacity",0)
-    .attr("stroke",boxes_color)
+    .attr("stroke","blue");
+  
   svg.append("text")
     .attr("x", boxes_x_1 + (boxes_width_1)/2)             
     .attr("y", boxes_y_2 + (boxes_height_2)/2)
     .attr("text-anchor", "middle")  
     .attr("dominant-baseline", "central")
-    .style("font-size", 2*font_size)
+    .style("font-size", 2.5*font_size)
+    .style("stroke", "brown")
     .text("VERSE")
-    .attr("class","unclickable");
+    .attr("class","unclickable"); 
 
   svg.append("rect")
     .attr("width", boxes_width_1)
     .attr("height", boxes_height_2)
     .attr("x",boxes_x_2)
     .attr("y",boxes_y_2)
+    .attr("class","cerc")
     .attr("stroke-width",boxes_border_width)
     .attr("fill-opacity",0)
-    .attr("stroke",boxes_color)
+    .attr("stroke", "grey");
+
   svg.append("text")
     .attr("x",boxes_x_2 + (boxes_width_1)/2)             
     .attr("y", boxes_y_2 + (boxes_height_2)/2)
     .attr("text-anchor", "middle")  
     .attr("dominant-baseline", "central")
-    .style("font-size", 2*font_size)
+    .style("font-size", 2.5*font_size)
+    .style("stroke", "brown")
     .text("CHORUS")
     .attr("class","unclickable");
-
   svg.append("rect")
     .attr("width", (w-margin.right)-(boxes_x_1+2*boxes_width_1))
     .attr("height", height/2+margin.top/2)
     .attr("x",boxes_x_1+2*boxes_width_1+margin.right/2)
     .attr("y",margin.top/2)
+    .attr("class","cerc")
     .attr("stroke-width",boxes_border_width)
     .attr("fill-opacity",0)
-    .attr("stroke",boxes_color)
+    .attr("stroke","blue");
   svg.append("rect")
     .attr("width", (w-margin.right)-(boxes_x_1+2*boxes_width_1))
     .attr("height", (height/2+margin.top/2)*0.15)
     .attr("x",boxes_x_1+2*boxes_width_1+margin.right/2)
     .attr("y",margin.top/2)
+    .attr("class","cerc")
     .attr("stroke-width",boxes_border_width)
     .attr("fill-opacity",0)
-    .attr("stroke",boxes_color)
+    .attr("stroke",boxes_color);
   svg.append("text")
     .attr("x",boxes_x_1+2*boxes_width_1+margin.right/2+((w-margin.right)-(boxes_x_1+2*boxes_width_1))/2)             
     .attr("y", margin.top/2 + (height/2+margin.top/2)*0.15/2)
     .attr("text-anchor", "middle")  
     .attr("dominant-baseline", "central")
     .style("font-size", 1.3*font_size)
+    .style("stroke", "blue")
     .text("SONGS")
     .attr("class","unclickable");
 
@@ -224,17 +244,19 @@ d3.csv("data.csv",function(data){
     .attr("height", height/2+margin.top/2)
     .attr("x",boxes_x_1+2*boxes_width_1+margin.right/2)
     .attr("y",h/2)
+    .attr("class","cerc")
     .attr("stroke-width",boxes_border_width)
     .attr("fill-opacity",0)
-    .attr("stroke",boxes_color)
+    .attr("stroke","blue");
   svg.append("rect")
     .attr("width", (w-margin.right)-(boxes_x_1+2*boxes_width_1))
     .attr("height", (height/2+margin.top/2)*0.15)
     .attr("x",boxes_x_1+2*boxes_width_1+margin.right/2)
     .attr("y",h/2)
+    .attr("class","cerc")
     .attr("stroke-width",boxes_border_width)
     .attr("fill-opacity",0)
-    .attr("stroke",boxes_color)
+    .attr("stroke","blue");
   svg.append("text")
     .attr("x",boxes_x_1+2*boxes_width_1+margin.right/2+((w-margin.right)-(boxes_x_1+2*boxes_width_1))/2)             
     .attr("y", h/2 + (height/2+margin.top/2)*0.15/2)
@@ -242,6 +264,7 @@ d3.csv("data.csv",function(data){
     .attr("dominant-baseline", "central")
     .style("font-size", 1.3*font_size)
     .text("ARTISTS")
+    .style("stroke", "blue")
     .attr("class","unclickable");
 
 
@@ -322,7 +345,7 @@ d3.csv("data.csv",function(data){
           songs_group.selectAll("*").attr("transform","translate(0,"+ (-slider_pos*max_translate) +")")
         }));
 
-  var songs_handle = songs_slider.insert("circle", ".track-overlay")
+  var songs_handle = songs_slider.insert("rect", ".track-overlay")
     .attr("class", "handle")
     .attr("r", 9);
 
@@ -355,7 +378,7 @@ d3.csv("data.csv",function(data){
           artists_group.selectAll("*").attr("transform","translate(0,"+ (-slider_pos*max_translate) +")")
         }));
 
-  var artists_handle = artists_slider.insert("circle", ".track-overlay")
+  var artists_handle = artists_slider.insert("rect", ".track-overlay")
     .attr("class", "handle")
     .attr("r", 9);
 
@@ -454,7 +477,7 @@ d3.csv("data.csv",function(data){
           .attr("y",y)
           .attr("fill",select_color)
           .attr("fill-opacity",0)
-          .attr("stroke","black")
+          .attr("stroke","blue")
           .data("")
         songs_group.selectAll("rect")
           .on("click", function(k,l){
@@ -466,7 +489,7 @@ d3.csv("data.csv",function(data){
               .selectAll("path")
               .transition()
               .style("stroke-opacity",curves_opacity)
-              .style("stroke",curves_color)
+              .style("stroke","grey")
               .duration(transition_duration)
               d3.select(this).attr("fill-opacity",0)
             }
@@ -481,7 +504,7 @@ d3.csv("data.csv",function(data){
                 .selectAll("path")
                 .transition()
                 .style("stroke-opacity",curves_opacity)
-                .style("stroke",curves_color)
+                .style("stroke","grey")
                 .duration(transition_duration)
               })
               songs_curves[songs_id[l]]
@@ -529,7 +552,7 @@ d3.csv("data.csv",function(data){
           .attr("y",y)
           .attr("fill",select_color)
           .attr("fill-opacity",0)
-          .attr("stroke","black")
+          .attr("stroke","blue")
           .data("")
         artists_group.selectAll("rect")
           .on("click", function(k,l)
@@ -694,9 +717,9 @@ d3.csv("data.csv",function(data){
             .attr("y",y)
             .attr("width",rectangle_width)
             .attr("height",rectangle_height)
-            .attr("fill",select_color)
+            .attr("fill","pink")
             .attr("fill-opacity",0)
-            .attr("stroke","black")
+            .attr("stroke","blue")
             .data(rect_data)
             .on("click",function(d){
                 bars[j].selectAll("rect").each(function(dr)
@@ -704,7 +727,7 @@ d3.csv("data.csv",function(data){
                   if (dr["chord"]!=d["chord"])
                     {
                       d3.select(this).attr("fill-opacity",0)
-                      .attr("stroke","black")
+                      .attr("stroke","blue")
                     }
                 })
                 if(selected_chords[j]!=d["chord"])
@@ -716,7 +739,7 @@ d3.csv("data.csv",function(data){
                 else
                   {
                   d3.select(this).attr("fill-opacity",0)
-                  .attr("stroke","black")
+                  .attr("stroke","blue")
                   selected_chords[j] = -1
                   }
                 
