@@ -1,5 +1,5 @@
 # ChordViz:
-#### Project made by:
+### Project made by:
 __DIERS Antoine__
 
 __EL IDRISSI Imane__
