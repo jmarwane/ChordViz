@@ -1,55 +1,53 @@
 # Rapport Technique
 
-## Base de données
+## Data Base:
 
-Nous avons utilisé une base de données au format csv contenant les colonnes suivantes : 
+We used a csv database containing the following columns : 
 
-* __Title :__ Le titre de la chanson
-* __Artist :__ Le nom de l'interprète 
-* __Genre :__ Le genre musical de la chanson
-* __Verse1 :__ Le premier accord du couplet (ex : G-)
+* __Title :__ The song's title
+* __Artist :__ The name of the interpreter
+* __Genre :__ The musical genre of the song
+* __Verse1 :__ The first chord of the verse (ex : G-)
 * __...__
-* __Verse8 :__ Le huitième (dernier) accord du couplet
-* __Chorus1 :__ Le premier accord du refrain
+* __Verse8 :__ The eighth (last) chord of the verse
+* __Chorus1 :__ The first chord of the chorus
 * __...__
-* __Chorus8 :__ Le huitième (dernier) accord du refrain
+* __Chorus8 :__ The eighth (last) chord of the chorus
 
-Nous avons créé nous-même cette base de données à partir du site [hooktheory](https://www.hooktheory.com/theorytab) 
+We created this database ourselves from the site [hooktheory](https://www.hooktheory.com/theorytab) 
 
-## Organisation des éléments
+## Organization of elements:
 
-La page contient plusieurs groupes d'éléments:
+The page contains several groups of items:
 
-* __unclickable_elements :__ Ce groupe contient les éléments sur lesquels on ne peut pas cliquer (utile pour pouvoir cliquer sur un élément qui est en background) 
-* __un groupe pour chaque mesure :__ ces groupes contiennent les carrés clickables de chaque mesure 
-* __un groupe de courbes pour chaque chanson__
-* __songs_group :__ Ce groupe contient les rectangles et les textes représentant les titres des chansons dans la fenêtre "songs" en haut à droite
-* __artists_group :__ Ce groupe contient les rectangles et les textes représentant les noms des interprètes dans la fenêtre "artists" en bas à droite
+* __unclickable_elements :__ This group contains items that can not be clicked (useful for clicking on an item that is in background)
+* __a group for each measure :__ 
+* __un groupe de courbes pour chaque chanson :__ these groups contain the clickable squares of each measure.
+* __songs_group :__ This group contains the rectangles and texts representing the titles of the songs in the "songs" window at the top right.
+* __artists_group :__ This group contains rectangles and texts representing the names of the performers in the "artists" window at the bottom right.
 
-## Interractions possibles et gestion des interactions
+## Possible interactions and interactions management:
 
-### Il est possible de : 
+### It is possible to : 
 
-* Cliquer sur un accord dans une mesure afin de ne conserver que les chansons qui ont cet accord à cette mesure.
-* Cliquer sur le titre d'une chanson pour la mettre en valeur sur le diagramme.
-* Cliquer sur un artiste pour ne conserver que les chansons de cet artiste 
+* Click on a chord in a bar to keep only the songs that have this chord on that chord.
+* Click on the title of a song to highlight it on the diagram.
+* Click on an artist to keep only the songs of this artist.
 
-Ces interactions sont possibles grâce à trois variables globales : __selected_song__, __selected_artist__ et __selected_chords__. 
+ These interactions are possible thanks to three global variables: __selected_song__, __selected_artist__ and __selected_chords__. 
 
-### Les interactions fonctionnent comme suit :
+### The interactions work as follows :
 
-* __Action de l'utilisateur :__ par exemple clic sur un artiste 
-* __Mise à jour des variables globales :__ par exemple, si l'utilisateur a cliqué sur un artiste, __selected_artist__ est mise à jour.
-* __Mise à jour des chansons valides :__ On parcourt les chansons et pour chaque chanson, on décide en fonction des trois variables globales mentionnées ci-dessus si celle-ci est valide
-* __Mise à jour de l'affichage :__ On affiche les courbes des chansons valides et leurs titres dans la fenêtre "Songs"
+* __User action :__ for example click on an artist 
+* __Update global variables :__ for example, if the user clicked on an artist, __selected_artist__ is updated.
+* __Update valid songs :__  We browse the songs and for each song, we decide according to the three global variables mentioned above if it is valid.
+* __Update the display:__ Show the curves of the valid songs and their titles in the "Songs" window.
 
-### Fonctions utilisées : 
+### Functions used : 
 
-* __update_valid_songs :__ Cette fonction prend en compte les trois variables globales __selected_song__, __selected_artist__ et __selected_chords__ 
-pour décider quelles chansons sont valides, elle met à jour la variable globale valid_songs qui est un tableau de taille n (le nombre de chansons) 
-qui contient 1 en position i si la chanson i est valide.
+* __update_valid_songs :__ This function takes into considiration the three global variables  __selected_song__, __selected_artist__ and __selected_chords__ .
+In order to decide which songs are valid, it updates the global variable __valid_songs__ which is an array of size n (the number of songs). Which contains 1 in position i if the song i is valid.
 
-* __display_valid_songs :__ Cette fonction utilise le tableau valid_songs pour n'afficher dans la fenêtre "songs" (en haut à droite) que les chansons qui sont valides.
+* __display_valid_songs :__ This function uses the __valid_songs__ array to show only songs that are valid in the "songs" window (top right).
 
-* __update_curves :__ Cette fonction utilise le tableau valid_songs pour n'afficher que les courbes des chansons qui sont valides.
-
+* __update_curves :__ This function uses the __valid_songs__ array to display only the curves of songs that are valid.
