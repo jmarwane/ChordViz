@@ -9,7 +9,7 @@ The data used are data on the consumption of electricity in France, according to
 
 There are 3 ways of viewing:
 - A sankey diagram that allows the representation of flows.
-- A radar chart that displays the average energy consumption by each unit: for example in the industry sector, it is used to calculate the average of all the sites and to see the total, it is necessary to multiply by the number of sites, the residential ...
+- A radar chart that displays the average energy consumption by each unit: for example in the industry sector, it is used to calculate the average of all the sites and to see the total, it is necessary to multiply by the number of sites, the residential...
 - a geo map used to visualize the annual consumption.
 ## Comments and points of improvement :
  <ls> 
