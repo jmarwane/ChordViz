@@ -197,6 +197,7 @@ In order to decide which songs are valid, it updates the global variable __valid
   </tr>
 </table>
 Your comments and suggestions were really important for us to arrive at the final version of our application that responds wisely to the requirements of the specifications and it will help students learn to play on the instruments they want.
-Please find in the following file: [UpDate.md](https://github.com/jmarwane/ChordViz/blob/master/design/UpDate.md), details on improvement points made.
+Please find in the following file: [ UpDate.md ](https://github.com/jmarwane/ChordViz/blob/master/design/UpDate.md)
+details on improvement points made.
 
 
