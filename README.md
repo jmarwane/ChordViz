@@ -196,7 +196,8 @@ In order to decide which songs are valid, it updates the global variable __valid
 </table>
 Your comments and suggestions were really important for us to arrive at the final version of our application that responds wisely to the requirements of the specifications and it will help students learn to play on the instruments they want.
 Please find in the following file: [UpData.md](https://www.github.com/jmarwane/ChordViz/blob/master/design/UpDate.md) details on improvement points made.
- #### Click on the chords:
+
+#### Click on the chords:
 
 Clicking on a chord filters the songs, only the songs containing this chord to the selected measure are kept.
 We can click on a single chord by measure but we can put a contriante on each measure.
