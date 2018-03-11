@@ -214,7 +214,7 @@ Please find in the following file: [UpData.md](https://www.github.com/jmarwane/C
 <table border="0">
   <tr>
     <td>
-      <img src="img/photo1.JPG" style="width: 100px;">
+      <img src="img/photo1.PNG" style="width: 100px;">
     </td>
   </tr>
   <tr>
@@ -227,7 +227,7 @@ Please find in the following file: [UpData.md](https://www.github.com/jmarwane/C
 <table border="0">
   <tr>
     <td>
-      <img src="img/photo2.JPG" style="width: 100px;">
+      <img src="img/photo2.PNG" style="width: 100px;">
     </td>
   </tr>
   <tr>
@@ -239,7 +239,7 @@ Please find in the following file: [UpData.md](https://www.github.com/jmarwane/C
 <table border="0">
   <tr>
     <td>
-      <img src="img/photo3.JPG" style="width: 100px;">
+      <img src="img/photo3.PNG" style="width: 100px;">
     </td>
   </tr>
   <tr>
@@ -251,7 +251,7 @@ Please find in the following file: [UpData.md](https://www.github.com/jmarwane/C
 <table border="0">
   <tr>
     <td>
-      <img src="img/photo4.JPG" style="width: 100px;">
+      <img src="img/photo4.PNG" style="width: 100px;">
     </td>
   </tr>
   <tr>
