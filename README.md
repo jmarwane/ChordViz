@@ -209,7 +209,9 @@ Keep only the songs of this artist, whether on the graph or in the song selectio
 
 #### Select a song in the right menu:
 
-Change the line color of this song and put it on top of the others
+Change the line color of this song and put it on top of the others.
+
+In order to facilitate the choices of the user, our application meets the requirements of the specifications and put into service 3 types of filters: Songs, Artists and Genre to facilitate the search of music.
 
 <table border="0">
   <tr>
@@ -219,11 +221,12 @@ Change the line color of this song and put it on top of the others
   </tr>
   <tr>
     <td align="center">
-      <h6> Chain graph of chords </h6>
+      <h6> Application interface in its final version </h6>
     </td>
   </tr>
 </table>
 
+When the user clicks on the A chord, it will display all the songs that start with that chord.
 <table border="0">
   <tr>
     <td>
@@ -232,10 +235,11 @@ Change the line color of this song and put it on top of the others
   </tr>
   <tr>
     <td align="center">
-      <h6> Chain graph of chords </h6>
+      <h6> all songs that start with chord "A" </h6>
     </td>
   </tr>
 </table>
+
 <table border="0">
   <tr>
     <td>
@@ -244,10 +248,11 @@ Change the line color of this song and put it on top of the others
   </tr>
   <tr>
     <td align="center">
-      <h6> Chain graph of chords </h6>
+      <h6> The drop-down list of song choices </h6>
     </td>
   </tr>
 </table>
+By selecting, the desired choices the application visualizes the progression of the chords in red of the chosen song.
 <table border="0">
   <tr>
     <td>
@@ -256,10 +261,12 @@ Change the line color of this song and put it on top of the others
   </tr>
   <tr>
     <td align="center">
-      <h6> Chain graph of chords </h6>
+      <h6>  Chords progression of Imogen Heap's song hide and seek </h6>
     </td>
   </tr>
 </table>
+
+the genre filter keep just the songs of the genre selected, So when the user chooses the genre __Hip-Hop-Rap__, the application visualizes the progression of the songs of this type chosen and gives the choice to the user of the selected song.
 
 <table border="0">
   <tr>
@@ -269,7 +276,7 @@ Change the line color of this song and put it on top of the others
   </tr>
   <tr>
     <td align="center">
-      <h6> Chain graph of chords </h6>
+      <h6> Chords progression of all Hip-Hop-Rap songs  </h6>
     </td>
   </tr>
 </table>
@@ -281,9 +288,12 @@ Change the line color of this song and put it on top of the others
   </tr>
   <tr>
     <td align="center">
-      <h6> Chain graph of chords </h6>
+      <h6> Chords progression of selected choice </h6>
     </td>
   </tr>
+      
+when we click on a sequence of chords, it allows us to get the songs that contain this sequence of music selected by the user.
+
 </table>
 </table>
 <table border="0">
@@ -294,7 +304,7 @@ Change the line color of this song and put it on top of the others
   </tr>
   <tr>
     <td align="center">
-      <h6> Chain graph of chords </h6>
+      <h6> All songs that contain the selected chords </h6>
     </td>
   </tr>
 </table>
