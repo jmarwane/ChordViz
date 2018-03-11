@@ -86,6 +86,7 @@ At first, we worked on the following database:
     </td>
   </tr>
 </table>
+
 ## the features of the application:
 
 Our D3.js script consists of the following features:
