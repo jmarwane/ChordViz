@@ -308,6 +308,7 @@ when we click on a sequence of chords, it allows us to get the songs that contai
     </td>
   </tr>
 </table>
+the application allows the user to click on the chords that he wants to display all the songs containing the series of selected notes.
 
 ## Link to video:
 
