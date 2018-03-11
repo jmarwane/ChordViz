@@ -172,7 +172,21 @@ The page contains several groups of items:
 * __Update valid songs :__  We browse the songs and for each song, we decide according to the three global variables mentioned above if it is valid.
 * __Update the display:__ Show the curves of the valid songs and their titles in the "Songs" window.
 
-### Functions used : 
+### Functions used :
+
+#### Click on the agreements:
+
+Clicking on a chord filters the songs, only the songs containing this chord to the selected measure are kept.
+We can click on a single chord by measure but we can put a contriante on each measure.
+(These changes also apply to the two menus on the right, ie, the artists of which no song is kept disappear and songs that do not meet the conditions disappear)
+
+#### Select an artist in the right menu:
+
+Keep only the songs of this artist, whether on the graph or in the song selection menu
+
+#### Select a song in the right menu:
+
+Change the line color of this song and put it on top of the others
 
 * __update_valid_songs :__ This function takes into considiration the three global variables  __selected_song__, __selected_artist__ and __selected_chords__ .
 In order to decide which songs are valid, it updates the global variable __valid_songs__ which is an array of size n (the number of songs). Which contains 1 in position i if the song i is valid.
