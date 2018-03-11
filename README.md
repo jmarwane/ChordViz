@@ -137,7 +137,7 @@ We used a csv database containing the following columns :
 
 * __Title :__ The song's title
 * __Artist :__ The name of the interpreter
-* __Genre :__ The musical genre of the song
+* __Genre :__ The musical style of the song
 * __Verse1 :__ The first chord of the verse (ex : G-)
 * __...__
 * __Verse8 :__ The eighth (last) chord of the verse
@@ -154,8 +154,6 @@ The page contains several groups of items:
 * __unclickable_elements :__ This group contains items that can not be clicked (useful for clicking on an item that is in background)
 * __a group for each measure :__ 
 * __un groupe de courbes pour chaque chanson :__ these groups contain the clickable squares of each measure.
-* __songs_group :__ This group contains the rectangles and texts representing the titles of the songs in the "songs" window at the top right.
-* __artists_group :__ This group contains rectangles and texts representing the names of the performers in the "artists" window at the bottom right.
 
 ## Possible interactions and interactions management:
 
