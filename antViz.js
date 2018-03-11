@@ -1,5 +1,10 @@
+d3.selection.prototype.moveToFront = function() {
+    return this.each(function() {
+        this.parentNode.appendChild(this);
+    });
+};
+
 function antViz(data) {
-    console.log(data)
     var background_color = "pink"
     var select_color = "red"
     var curves_color = "#6292C8"
@@ -22,7 +27,7 @@ function antViz(data) {
     }
     // Largeur et hauteur du svg
     var w = window.innerWidth;
-    var h = 400;
+    var h = 580;
     // Un array contenant les entiers de 1 à 16
     var bars_id = Array(16).fill().map((e, i) => i + 1);
     // Un array contenant les noms des accords les plus communs, "?" correspond aux autres accords
@@ -43,19 +48,19 @@ function antViz(data) {
     var diagram_width_ratio = 1;
     var diagram_height_ratio = 0.9;
     // Distances horizontale et verticale entre deux rectangles contenant un accord
-    var horizontal_padding = (diagram_width_ratio * width - 16 * rectangle_width) / 16;
+    var horizontal_padding = (diagram_width_ratio * width - 16 * rectangle_width - margin.left) / 14;
     var vertical_padding = 0;
     // Hauteur d'un des rectangles contenant un accord
     var rectangle_height = -vertical_padding + diagram_height_ratio * height / chords.length;
     // Taille de la police de caractères
-    var font_size = rectangle_height - 10;
+    var font_size = rectangle_height - 11;
     var boxes_color = "blue"
     var boxes_border_width = 2
-    var boxes_width_1 = width * diagram_width_ratio / 2 + (margin.left - horizontal_padding) / 2
+    var boxes_width_1 = width * diagram_width_ratio / 2 + (margin.left) / 2
     var boxes_height_1 = height * diagram_height_ratio + rectangle_height
     var boxes_height_2 = height - boxes_height_1 + margin.top
     var boxes_x_1 = margin.left / 2
-    var boxes_x_2 = margin.left / 2 + width * diagram_width_ratio / 2 + (margin.left - horizontal_padding) / 2
+    var boxes_x_2 = margin.left / 2 + width * diagram_width_ratio / 2 + (margin.left) / 2
     var boxes_y_1 = margin.top / 2 + height * (1 - diagram_height_ratio)
     var boxes_y_2 = margin.top / 2
     svg.append("rect")
@@ -102,7 +107,7 @@ function antViz(data) {
         .attr("class", "cerc")
         .attr("stroke-width", boxes_border_width)
         .attr("fill-opacity", 0)
-        .attr("stroke", "grey");
+        .attr("stroke", "blue");
     svg.append("text")
         .attr("x", boxes_x_2 + (boxes_width_1) / 2)
         .attr("y", boxes_y_2 + (boxes_height_2) / 2)
@@ -127,6 +132,7 @@ function antViz(data) {
     var valid_songs = new Array(n_songs)
     var n_valid_songs = n_songs
     var selected_artist = "All Artists"
+    var selected_genre = "All Genres"
     var selected_song = -1
     var songs_curves = new Array(n_songs)
     data.forEach(function(d, i) {
@@ -139,10 +145,17 @@ function antViz(data) {
     function update_valid_songs() {
         n_valid_songs = n_songs
         for (i = 0; i < n_songs; i++) {
-            valid_songs[i] = 1
-            song = data[i]
+            valid_songs[i] = 1;
+            song = data[i];
             if (selected_artist != "All Artists") {
                 if (song["Artist"] != selected_artist) {
+                    valid_songs[i] = 0;
+                    n_valid_songs = n_valid_songs - 1;
+                }
+            }
+
+            if (selected_genre != "All Genres") {
+                if (song["Genre"] != selected_genre) {
                     valid_songs[i] = 0
                     n_valid_songs = n_valid_songs - 1
                 }
@@ -163,8 +176,6 @@ function antViz(data) {
                 }
             }
         }
-        console.log(selected_artist)
-        console.log(n_valid_songs)
     }
 
     var songs_id = new Array(n_valid_songs)
@@ -176,12 +187,7 @@ function antViz(data) {
     // Une fonction qui gère la mise à jour des courbes quand on sélectionne / déselectionne un accord
     function update_curves() {
         curves_opacity = min_curves_opacity + (1 - n_valid_songs / n_songs);
-        console.log(a)
         for (i = 0; i < n_songs; i++) {
-            if (i == selected_song) {
-                songs_curves[i]
-                    .selectAll("path").moveToFront();
-            }
             if (valid_songs[i] == 0) {
                 songs_curves[i]
                     .selectAll("path")
@@ -206,7 +212,7 @@ function antViz(data) {
                 next_chord = get_chord(i, bar + 1)
                 chord_id = chords.indexOf(current_chord)
                 next_chord_id = chords.indexOf(next_chord)
-                x = margin.left + (horizontal_padding + rectangle_width) * (bar - 1)
+                x = boxes_x_1 + margin.left / 2 + (horizontal_padding + rectangle_width) * (bar - 1)
                 y = margin.top + (1 - diagram_height_ratio) * height + (rectangle_height + vertical_padding) * chord_id
                 y2 = margin.top + (1 - diagram_height_ratio) * height + (rectangle_height + vertical_padding) * next_chord_id
                 line_data =
@@ -245,14 +251,13 @@ function antViz(data) {
                         .y(function(d) {
                             return d["y"];
                         }))
-                    .on("click", function(curve_data) {})
             }
             for (bar = 9; bar < 16; bar++) {
                 current_chord = get_chord(i, bar)
                 next_chord = get_chord(i, bar + 1)
                 chord_id = chords.indexOf(current_chord)
                 next_chord_id = chords.indexOf(next_chord)
-                x = margin.left + (horizontal_padding + rectangle_width) * (bar - 1)
+                x = boxes_x_2 + margin.left / 2 + (horizontal_padding + rectangle_width) * (bar - 9)
                 y = margin.top + (1 - diagram_height_ratio) * height + (rectangle_height + vertical_padding) * chord_id
                 y2 = margin.top + (1 - diagram_height_ratio) * height + (rectangle_height + vertical_padding) * next_chord_id
                 line_data =
@@ -298,7 +303,11 @@ function antViz(data) {
     chords.forEach(
         function(c, i) {
             bars_id.forEach(function(b, j) {
-                var x = margin.left + (horizontal_padding + rectangle_width) * j
+                if (j < 8) {
+                    var x = boxes_x_1 + margin.left/2 + (horizontal_padding + rectangle_width) * j
+                } else {
+                    var x = boxes_x_2 + margin.left/2 + (horizontal_padding + rectangle_width) * (j - 8)
+                }
                 var y = margin.top + (1 - diagram_height_ratio) * height + (rectangle_height + vertical_padding) * i
                 var rect_data = [{
                         chord: i,
@@ -345,23 +354,14 @@ function antViz(data) {
             })
         })
 
-    last_artist = ""
-    var n_artists = 0
-    for (i = 0; i < n_songs; i++) {
-        if (data[i]["Artist"] != last_artist) {
-            last_artist = data[i]["Artist"]
-            n_artists = n_artists + 1
-        }
-    }
-    artists = new Array(n_artists)
-    j = 0
-    for (i = 0; i < n_songs; i++) {
-        if (data[i]["Artist"] != last_artist) {
-            last_artist = data[i]["Artist"]
-            artists[j] = last_artist
-            j = j + 1
-        }
-    }
+    var genres = d3.map(data, d => {
+        return d.Genre
+    }).keys()
+    var artists = d3.map(data, d => {
+        return d.Artist
+    }).keys()
+    var n_artists = artists.length
+    var n_genres = genres.length
 
     function display_artists() {
         last_artist = "";
@@ -384,7 +384,6 @@ function antViz(data) {
     function handle_artist_selection() {
         $('#artist')
             .on('change', function() {
-                console.log(this.value);
                 selected_artist = this.value;
                 selected_song = -1
                 update_valid_songs()
@@ -394,6 +393,38 @@ function antViz(data) {
             });
     }
     handle_artist_selection()
+
+    function display_genres() {
+        last_artist = "";
+
+        d3.select('#genre')
+            .append('option')
+            .attr('value', 'All Genres')
+            .text('All Genres')
+
+
+        for (i = 0; i < n_genres; i++) {
+            d3.select('#genre')
+                .append('option')
+                .attr('value', genres[i])
+                .text(genres[i])
+        }
+    }
+    display_genres();
+
+    function handle_genre_selection() {
+        $('#genre')
+            .on('change', function() {
+                selected_genre = this.value;
+                selected_song = -1
+                update_valid_songs()
+                display_valid_songs()
+                update_curves()
+
+            });
+    }
+    handle_genre_selection()
+
 
     function display_valid_songs() {
         j = 0;
@@ -423,7 +454,6 @@ function antViz(data) {
     function handle_song_selection() {
         $('#song')
             .on('change', function() {
-                console.log(this.value)
                 selected_song = this.value;
 
                 songs_curves.forEach((sc, i) => {
@@ -448,4 +478,5 @@ function antViz(data) {
             });
     }
     handle_song_selection()
+    console.log(data)
 }
