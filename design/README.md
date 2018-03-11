@@ -182,6 +182,8 @@ In order to decide which songs are valid, it updates the global variable __valid
 * __display_valid_songs :__ This function uses the __valid_songs__ array to show only songs that are valid in the "songs" window (top right).
 
 * __update_curves :__ This function uses the __valid_songs__ array to display only the curves of songs that are valid.
+ 
+ ## Improvements:
 <table border="0">
   <tr>
     <td>
@@ -194,5 +196,7 @@ In order to decide which songs are valid, it updates the global variable __valid
     </td>
   </tr>
 </table>
+Your comments and suggestions were really important for us to arrive at the final version of our application that responds wisely to the requirements of the specifications and it will help students learn to play on the instruments they want.
+Please find in the following file:[UpDate.md !](https://github.com/hichamelhady/ConsoElec/blob/master/Update.md), details on improvement points made.
 
 
