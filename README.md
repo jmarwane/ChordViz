@@ -261,6 +261,30 @@ Please find in the following file: [UpData.md](https://www.github.com/jmarwane/C
   </tr>
 </table>
 
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/photo5.PNG" style="width: 100px;">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <h6> Chain graph of chords </h6>
+    </td>
+  </tr>
+</table>
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/photo6.PNG" style="width: 100px;">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <h6> Chain graph of chords </h6>
+    </td>
+  </tr>
+</table>
 
 
 ## Link to video:
