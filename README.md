@@ -211,6 +211,58 @@ In order to decide which songs are valid, it updates the global variable __valid
 Your comments and suggestions were really important for us to arrive at the final version of our application that responds wisely to the requirements of the specifications and it will help students learn to play on the instruments they want.
 Please find in the following file: [UpData.md](https://www.github.com/jmarwane/ChordViz/blob/master/design/UpDate.md) details on improvement points made.
 
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/photo1.JPG" style="width: 100px;">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <h6> Chain graph of chords </h6>
+    </td>
+  </tr>
+</table>
+
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/photo2.JPG" style="width: 100px;">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <h6> Chain graph of chords </h6>
+    </td>
+  </tr>
+</table>
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/photo3.JPG" style="width: 100px;">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <h6> Chain graph of chords </h6>
+    </td>
+  </tr>
+</table>
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/photo4.JPG" style="width: 100px;">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <h6> Chain graph of chords </h6>
+    </td>
+  </tr>
+</table>
+
+
+
 ## Link to video:
 
 [Here it is !! Thanks you for watching and feel free to ask us](https://www.youtube.com)
