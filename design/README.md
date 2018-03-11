@@ -6,6 +6,26 @@ __EL IDRISSI Imane__
 
 __Jebbari Marwane__
 </br>
+## Table of contents :
+
+      . Introduction
+
+      . the features of the application
+
+      . Description of our new Data Base
+      
+      . Organization of elements
+      
+      . Possible interactions and interactions management
+      
+      . Improvements
+      
+      . Link to video
+
+      . Conclusion
+      
+      . Resources
+      
 ## Dataviz course project : visualization of chord progressions in music
 As part of the MOS projects: Interactive visualization of data, we chose the project entitled: __Visualization of the sequence of chords of a number of songs:__
 
@@ -66,6 +86,8 @@ At first, we worked on the following database:
     </td>
   </tr>
 </table>
+## the features of the application:
+
 Our D3.js script consists of the following features:
 
 - Determine a duration of transitions for the appearance / dispartition of lines.
