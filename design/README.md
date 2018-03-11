@@ -6,6 +6,26 @@ __EL IDRISSI Imane__
 
 __Jebbari Marwane__
 </br>
+## Table of contents :
+
+      . Introduction
+
+      . the features of the application
+
+      . Description of our new Data Base
+      
+      . Organization of elements
+      
+      . Possible interactions and interactions management
+      
+      . Improvements
+      
+      . Link to video
+
+      . Conclusion
+      
+      . Resources
+      
 ## Dataviz course project : visualization of chord progressions in music
 As part of the MOS projects: Interactive visualization of data, we chose the project entitled: __Visualization of the sequence of chords of a number of songs:__
 
@@ -66,6 +86,9 @@ At first, we worked on the following database:
     </td>
   </tr>
 </table>
+
+## the features of the application:
+
 Our D3.js script consists of the following features:
 
 - Determine a duration of transitions for the appearance / dispartition of lines.
@@ -159,6 +182,41 @@ In order to decide which songs are valid, it updates the global variable __valid
 * __display_valid_songs :__ This function uses the __valid_songs__ array to show only songs that are valid in the "songs" window (top right).
 
 * __update_curves :__ This function uses the __valid_songs__ array to display only the curves of songs that are valid.
+ 
+ ## Improvements:
+<table border="0">
+  <tr>
+    <td>
+      <img src="FirstViz.png" style="width: 100px;">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <h6> The first visualization </h6>
+    </td>
+  </tr>
+</table>
+Your comments and suggestions were really important for us to arrive at the final version of our application that responds wisely to the requirements of the specifications and it will help students learn to play on the instruments they want.
+Please find in the following file: [UpData.md](https://www.github.com/jmarwane/ChordViz/blob/master/design/UpDate.md) details on improvement points made.
 
+## Link to video:
+
+[Here it is !! Thanks you for watching and feel free to ask us](https://www.youtube.com)
+
+  </p>
+<a href="https://www.youtube.com">
+<figure>
+  <p align="center"> <img src="/Img_project_final/youtube.JPG" width=80% />
+</figure>
+</a>
+
+<p align="center"> <i>Youtube </i> </p>
+    <p align=justify>
+</p>
+
+## Conclusion:
+  
+## Resources:
+ .  https://syntagmatic.github.io/parallel-coordinates/
 
 
