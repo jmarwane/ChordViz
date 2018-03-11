@@ -36,7 +36,7 @@ At first, we were thinking about relying on graph theory to visualize the sequen
 <table border="0">
   <tr>
     <td>
-      <img src="img/11.jpg" style="width: 100px;">
+      <img src="img/11.jpg" style="width: 70px height: 60;">
     </td>
   </tr>
   <tr>
@@ -285,7 +285,19 @@ Change the line color of this song and put it on top of the others
     </td>
   </tr>
 </table>
-
+</table>
+<table border="0">
+  <tr>
+    <td>
+      <img src="img/photo7.PNG" style="width: 100px;">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <h6> Chain graph of chords </h6>
+    </td>
+  </tr>
+</table>
 
 ## Link to video:
 
