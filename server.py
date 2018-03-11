@@ -7,5 +7,5 @@ PORT = 5432
 
 Handler = http.server.SimpleHTTPRequestHandler
 httpd = socketserver.TCPServer(("",PORT), Handler)
-print("�  l'écoute sur le port :", PORT)
+print("A  l'écoute sur le port :", PORT)
 httpd.serve_forever()
