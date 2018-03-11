@@ -326,7 +326,7 @@ the application allows the user to click on the chords that he wants to display 
 </p>
 
 ## Conclusion:
-  
+  This project allowed us to master the notion of data interactions and to apply the D3.js framework to visualize the progress of chords of music that are in a database. the suggestions offered during the presentation allowed us to improve the functionality of our application. As well as this project it was an opportunity to use different Bootstrap, Html5, Css3, Java script techniques and to understand the technical functioning of the BI tool "Tableau Public" after its use in the first TP. Our app is dedicated to people passionate about learning instruments and exactly meets their needs.
 ## Resources:
  .  https://syntagmatic.github.io/parallel-coordinates/
 
