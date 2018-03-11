@@ -51,7 +51,7 @@ So, given the problems encountered by the first solution, we managed to propose 
 <table border="0">
   <tr>
     <td>
-      <img src="img/33.jpg" style="width: 100px;">
+      <img src="img/33.jpg" style="width: 80px;">
     </td>
   </tr>
   <tr>
@@ -64,7 +64,7 @@ So, given the problems encountered by the first solution, we managed to propose 
 <table border="0">
   <tr>
     <td>
-      <img src="img/22.jpg" style="width: 100px;">
+      <img src="img/22.jpg" style="width: 80px;">
     </td>
   </tr>
   <tr>
@@ -77,7 +77,7 @@ At first, we worked on the following database:
 <table border="0">
   <tr>
     <td>
-      <img src="img/DB.JPG" style="width: 100px;">
+      <img src="img/DB.JPG" style="width: 80px;">
     </td>
   </tr>
   <tr>
@@ -121,7 +121,7 @@ Our D3.js script consists of the following features:
 <table border="0">
   <tr>
     <td>
-      <img src="img/chord progressions.JPG" style="width: 100px;">
+      <img src="img/chord progressions.JPG" style="width: 80px;">
     </td>
   </tr>
   <tr>
