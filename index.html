@@ -1,775 +1,90 @@
 <!DOCTYPE html>
-<head>
-  <meta charset="utf-8">
-  <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
-  <style>
-    .cerc {
-      stroke-width: 8px;
-      stroke: #80ced6;
-    }
-
-    .unclickable {
-    pointer-events: none;
-    background-color:#fefbd8;
-		}
-
-    .ticks {
-      font: 10px sans-serif;
-    }
-    }
-
-    .track,
-    .track-inset,
-    .track-overlay {
-      stroke-linecap: round;
-    }
-    }
-
-    .track {
-      stroke: #000;
-      stroke-opacity: 0.3;
-      stroke-width: 10px;
-    }
-
-    .track-inset {
-      stroke: #ddd;
-      stroke-width: 8px;
-    }
-
-    .track-overlay {
-      pointer-events: stroke;
-      stroke-width: 50px;
-      stroke: transparent;
-      cursor: crosshair;
-    }
-
-    .handle {
-      fill: #fff;
-      stroke: #80ced6;
-      stroke-opacity: 0.5;
-      stroke-width: 2px;
-    }
-    }
-
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
-  </style>
-</head>
-<body>
-  <script>
-
-function extractUrlParams() {
-  var t = location.search.substring(1).split('&');
-  var f = [];
-  for (var i = 0; i < t.length; i++) {
-    var x = t[i].split('=');
-    f[x[0]] = x[1];
-  }
-  return f;
-}
-
-arg = extractUrlParams();
-if(arg['d'] == 2){
-  var ddd = 'data_clean_no7.csv';
-  var chords = ['A', 'A#', 'A-', 'B', 'B#', 'B-', 'C', 'C#', 'C-', 'D', 'D#', 'D-', 'E', 'E#', 'E-', 'F', 'F#', 'G', 'G#', 'G-']
-  var min_curves_opacity = 0.05;
-  var mince_font = 10;
-}
-else{
-  var ddd = 'data.csv';
-  var chords = ["A", "a", "A#", "a#", "B", "b", "C", "c", "C#", "c#", "D", "d", "D#", "d#", "E", "e", "F", "f", "F#", "f#", "G", "g", "G#", "g#"];
-  var min_curves_opacity = 0.2
-  var mince_font = 4;
-}
-d3.csv(ddd,function(data){
-
-  console.log(data)
-
-  var background_color = "pink"
-  var select_color = "red"
-  var curves_color = "#6292C8"
-
-  // La durée des transitions pour l'apparition / dispartition des lignes
-  var transition_duration = 600
-  
-  // Le nombre de chansons dans la base de données
-  var n_songs = data.length
-    
-  // La plus petite opacité que peut avoir une ligne
-  //var min_curves_opacity = 0.05
-  var curves_opacity = min_curves_opacity
-    
-  // La largeur des lignes
-  var curves_width = 3
-    
-  // Renvoie le string correspondant à l'accord n°bar du morceau n°song
-  function get_chord(song,bar)
-  {
-    if (bar<9)
-    {
-      return(data[song]["Verse"+bar])
-    }
-		else
-    {
-      return(data[song]["Chorus"+(bar-8)])
-    }
-	}
-    
-  
-    
-  // Largeur et hauteur du svg
-  var w = 1100;
-  var h = 700;
-    
-  // Un array contenant les entiers de 1 à 16
-  var bars_id = Array(16).fill().map((e,i)=>i+1);
-    
-  // Un array contenant les noms des accords les plus communs, "?" correspond aux autres accords
-  // var chords = ["A","a","A#","a#","B","b","C","c","C#","c#","D","d","D#","d#","E","e","F","f","F#","f#","G","g","G#","g#"]
-  //var chords = ['A', 'A#', 'A-', 'B', 'B#', 'B-', 'C', 'C#', 'C-', 'D', 'D#', 'D-', 'E', 'E#', 'E-', 'F', 'F#', 'G', 'G#', 'G-']
-  // Le svg
-  var svg = d3.select("body").append("svg").attr("width",w).attr("height",h)
-
-  // Les dimensions de la zone d'affichage sur le svg
-  var margin = {top: 20, right: 20, bottom: 20, left: 20}
-  var width = +svg.attr("width") - margin.left - margin.right
-  var height = +svg.attr("height") - margin.top - margin.bottom
-    
-  // Largeur d'un des rectangles contenant un nom d'accord
-  var rectangle_width = 20;
-
-  var diagram_width_ratio = 0.8
-  var diagram_height_ratio = 0.9
-
-  // Distances horizontale et verticale entre deux rectangles contenant un accord
-  var horizontal_padding = (diagram_width_ratio*width-16*rectangle_width)/16;
-  var vertical_padding = 0;
-
-  // Hauteur d'un des rectangles contenant un accord
-  var rectangle_height = -vertical_padding + diagram_height_ratio*height/chords.length;
-    
-  // Taille de la police de caractères
-  var font_size = rectangle_height - mince_font ;
-    
-  var boxes_color = "blue"
-  var boxes_border_width = 2  
-
-  // Le background
-  svg.append("rect")
-    .attr("width", "100%")
-    .attr("height", "100%")
-    .attr("fill-opacity",0)
-    .attr("stroke","blue")
-
-  var boxes_width_1 = width*diagram_width_ratio/2+(margin.left-horizontal_padding)/2
-  var boxes_height_1 = height*diagram_height_ratio+rectangle_height
-  var boxes_height_2 = height-boxes_height_1+margin.top
-  var boxes_x_1 = margin.left/2
-  var boxes_x_2 = margin.left/2+width*diagram_width_ratio/2+(margin.left-horizontal_padding)/2
-  var boxes_y_1 = margin.top/2+height*(1-diagram_height_ratio)
-  var boxes_y_2 = margin.top/2
-
-  svg.append("rect")
-    .attr("width", boxes_width_1)
-    .attr("height", boxes_height_1)
-    .attr("x",boxes_x_1)
-    .attr("y",boxes_y_1)
-    .attr("class","cerc")
-    .attr("stroke-width",boxes_border_width)
-    .attr("fill-opacity",0)
-    .attr("stroke","blue");
-
-  
-  svg.append("rect")
-    .attr("width", boxes_width_1)
-    .attr("height", boxes_height_1)
-    .attr("x",boxes_x_2)
-    .attr("y",boxes_y_1)
-    .attr("class","cerc")
-    .attr("stroke-width",boxes_border_width)
-    .attr("fill-opacity",0)
-    .attr("stroke","blue");
-
-  svg.append("rect")
-    .attr("width", boxes_width_1)
-    .attr("height", boxes_height_2)
-    .attr("x",boxes_x_1)
-    .attr("y",boxes_y_2)
-    .attr("class","cerc")
-    .attr("stroke-width",boxes_border_width)
-    .attr("fill-opacity",0)
-    .attr("stroke","blue");
-  
-  svg.append("text")
-    .attr("x", boxes_x_1 + (boxes_width_1)/2)             
-    .attr("y", boxes_y_2 + (boxes_height_2)/2)
-    .attr("text-anchor", "middle")  
-    .attr("dominant-baseline", "central")
-    .style("font-size", 2.5*font_size)
-    .style("stroke", "brown")
-    .text("VERSE")
-    .attr("class","unclickable"); 
-
-  svg.append("rect")
-    .attr("width", boxes_width_1)
-    .attr("height", boxes_height_2)
-    .attr("x",boxes_x_2)
-    .attr("y",boxes_y_2)
-    .attr("class","cerc")
-    .attr("stroke-width",boxes_border_width)
-    .attr("fill-opacity",0)
-    .attr("stroke", "grey");
-
-  svg.append("text")
-    .attr("x",boxes_x_2 + (boxes_width_1)/2)             
-    .attr("y", boxes_y_2 + (boxes_height_2)/2)
-    .attr("text-anchor", "middle")  
-    .attr("dominant-baseline", "central")
-    .style("font-size", 2.5*font_size)
-    .style("stroke", "brown")
-    .text("CHORUS")
-    .attr("class","unclickable");
-  svg.append("rect")
-    .attr("width", (w-margin.right)-(boxes_x_1+2*boxes_width_1))
-    .attr("height", height/2+margin.top/2)
-    .attr("x",boxes_x_1+2*boxes_width_1+margin.right/2)
-    .attr("y",margin.top/2)
-    .attr("class","cerc")
-    .attr("stroke-width",boxes_border_width)
-    .attr("fill-opacity",0)
-    .attr("stroke","blue");
-  svg.append("rect")
-    .attr("width", (w-margin.right)-(boxes_x_1+2*boxes_width_1))
-    .attr("height", (height/2+margin.top/2)*0.15)
-    .attr("x",boxes_x_1+2*boxes_width_1+margin.right/2)
-    .attr("y",margin.top/2)
-    .attr("class","cerc")
-    .attr("stroke-width",boxes_border_width)
-    .attr("fill-opacity",0)
-    .attr("stroke",boxes_color);
-  svg.append("text")
-    .attr("x",boxes_x_1+2*boxes_width_1+margin.right/2+((w-margin.right)-(boxes_x_1+2*boxes_width_1))/2)             
-    .attr("y", margin.top/2 + (height/2+margin.top/2)*0.15/2)
-    .attr("text-anchor", "middle")  
-    .attr("dominant-baseline", "central")
-    .style("font-size", 1.3*font_size)
-    .style("stroke", "blue")
-    .text("SONGS")
-    .attr("class","unclickable");
-
-  svg.append("rect")
-    .attr("width", (w-margin.right)-(boxes_x_1+2*boxes_width_1))
-    .attr("height", height/2+margin.top/2)
-    .attr("x",boxes_x_1+2*boxes_width_1+margin.right/2)
-    .attr("y",h/2)
-    .attr("class","cerc")
-    .attr("stroke-width",boxes_border_width)
-    .attr("fill-opacity",0)
-    .attr("stroke","blue");
-  svg.append("rect")
-    .attr("width", (w-margin.right)-(boxes_x_1+2*boxes_width_1))
-    .attr("height", (height/2+margin.top/2)*0.15)
-    .attr("x",boxes_x_1+2*boxes_width_1+margin.right/2)
-    .attr("y",h/2)
-    .attr("class","cerc")
-    .attr("stroke-width",boxes_border_width)
-    .attr("fill-opacity",0)
-    .attr("stroke","blue");
-  svg.append("text")
-    .attr("x",boxes_x_1+2*boxes_width_1+margin.right/2+((w-margin.right)-(boxes_x_1+2*boxes_width_1))/2)             
-    .attr("y", h/2 + (height/2+margin.top/2)*0.15/2)
-    .attr("text-anchor", "middle")  
-    .attr("dominant-baseline", "central")
-    .style("font-size", 1.3*font_size)
-    .text("ARTISTS")
-    .style("stroke", "blue")
-    .attr("class","unclickable");
-
-
-
-  // Des groupes d'éléments, bars[i] contient les rectangles contenant les noms des accords de la mesure i
-  var bars = new Array(16)
-    for (i=0;i<16;i++)
-    {
-      bars[i] = d3.select("svg").append("g")
-    }  
-  
-  // Les éléments sur lesquels on ne peut pas cliquer
-  var unclickable_elements = d3.select("svg").append("g").attr("class","unclickable")
-    
-  // Un objet d3 permettant de générer les courbes
-  var dacurve = {"d3Curve":d3.curveMonotoneX,"curveTitle":"curveMonotoneX"}
-    
-
-  var valid_songs = new Array(n_songs)
-  var n_valid_songs = n_songs
-
-  var selected_artist = "All Artists"
-  var selected_song = -1
-
-  // On créé des groupes d'éléments dans lesquels on va stocker les courbes de chaque chanson
-  var songs_curves = new Array(n_songs)
-  data.forEach(function(d,i)
-  {
-    songs_curves[i] = d3.select("svg").append("g")
-    valid_songs[i] = 1
-  })
-    
-  
-
-  var songs_svg = d3.select("body").append("svg")
-    .attr("width", (w-margin.right)-(boxes_x_1+2*boxes_width_1)-20)
-    .attr("height", (height/2+margin.top/2)*0.85-2)
-    .attr("transform", "translate(" + (boxes_x_1+2*boxes_width_1+margin.right/2+1) + "," + (-h+margin.top/2+(height/2+margin.top/2)*0.15-3) + ")")
-  var songs_group = songs_svg.append("g")
-    
-
-  var artists_svg = d3.select("body").append("svg")
-    .attr("width", (w-margin.right)-(boxes_x_1+2*boxes_width_1)-20)
-    .attr("height", (height/2+margin.top/2)*0.85-2)
-    .attr("transform", "translate(" + (2*boxes_x_1+4*boxes_width_1+3*margin.right/2-w+21) + "," + (-h + (h/2 + (height/2+margin.top/2)*0.15)-3) + ")")
-  var artists_group = artists_svg.append("g")
-
-
-  artists_group.append("rect")
-  .attr("width","100%")
-  .attr("height","100%")
-  .attr("fill","pink")
-
-
-  var songs_slider = svg.append("g")
-    .attr("class", "slider")
-    .attr("transform", "translate("+ (boxes_x_1+2*boxes_width_1+margin.right/2+(w-margin.right)-(boxes_x_1+2*boxes_width_1)-10) + ","+ (margin.top/2 + (height/2+margin.top/2)*0.15+15)+ "),rotate(90)");
-
-  var songs_slider_x = d3.scaleLinear()
-    .domain([0, 1])
-    .range([0, (height/2+margin.top/2)*0.75])
-    .clamp(true);
-
-  songs_slider.append("line")
-    .attr("class", "track")
-    .attr("x1", songs_slider_x.range()[0])
-    .attr("x2", songs_slider_x.range()[1])
-  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-    .attr("class", "track-inset")
-  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-    .attr("class", "track-overlay")
-    .call(d3.drag()
-        .on("start.interrupt", function() { songs_slider.interrupt(); })
-        .on("start drag", function() { 
-          slider_pos = songs_slider_x.invert(d3.event.x)
-          max_translate = d3.max([0,(20*n_valid_songs - (height/2+margin.top/2)*0.85)])
-          songs_handle.attr("cx", songs_slider_x(slider_pos)) 
-          songs_group.selectAll("*").attr("transform","translate(0,"+ (-slider_pos*max_translate) +")")
-        }));
-
-  var songs_handle = songs_slider.insert("rect", ".track-overlay")
-    .attr("class", "handle")
-    .attr("r", 9);
-
-
-
-
-  var artists_slider = svg.append("g")
-    .attr("class", "slider")
-    .attr("transform", "translate("+ (boxes_x_1+2*boxes_width_1+margin.right/2+(w-margin.right)-(boxes_x_1+2*boxes_width_1)-10) + ","+(h/2+(margin.top/2 + (height/2+margin.top/2)*0.15+5))+ "),rotate(90)");
-
-  var artists_slider_x = d3.scaleLinear()
-    .domain([0, 1])
-    .range([0, (height/2+margin.top/2)*0.75])
-    .clamp(true);
-
-  artists_slider.append("line")
-    .attr("class", "track")
-    .attr("x1", artists_slider_x.range()[0])
-    .attr("x2", artists_slider_x.range()[1])
-  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-    .attr("class", "track-inset")
-  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-    .attr("class", "track-overlay")
-    .call(d3.drag()
-        .on("start.interrupt", function() { artists_slider.interrupt(); })
-        .on("start drag", function() { 
-          slider_pos = artists_slider_x.invert(d3.event.x)
-          max_translate = d3.max([0,(20*n_artists - (height/2+margin.top/2)*0.85)])
-          artists_handle.attr("cx", artists_slider_x(slider_pos)) 
-          artists_group.selectAll("*").attr("transform","translate(0,"+ (-slider_pos*max_translate) +")")
-        }));
-
-  var artists_handle = artists_slider.insert("rect", ".track-overlay")
-    .attr("class", "handle")
-    .attr("r", 9);
-
-
-  last_artist = ""
-  var n_artists = 0
-  for(i = 0;i<n_songs;i++)
-  {
-    if (data[i]["Artist"] != last_artist)
-    {
-      last_artist = data[i]["Artist"]
-      n_artists = n_artists + 1
-    } 
-  }
-  artists = new Array(n_artists)
-  j = 0
-  for(i = 0;i<n_songs;i++)
-  {
-    if (data[i]["Artist"] != last_artist)
-    {
-      last_artist = data[i]["Artist"]
-      artists[j] = last_artist
-      j = j+1
-    } 
-  }
-
-
-  var n_valid_songs
-
-  function update_valid_songs()
-  {
-    n_valid_songs = n_songs
-    for(i = 0;i<n_songs;i++)
-    {
-
-      valid_songs[i] = 1
-      song = data[i]
-      if (selected_artist != "All Artists")
-      {
-        if (song["Artist"] != selected_artist)
-        {
-          valid_songs[i] = 0
-          n_valid_songs = n_valid_songs-1
-        }
-      }
-      
-      if (valid_songs[i] == 1)
-      {
-        for (j=0;j<16;j++)
-        {
-          chord = get_chord(i,j+1)
-          if (chords.indexOf(chord)<0 && typeof chord != "undefined" && chord!="end" && chord != "" && chord!= " ")
-          {
-            chord = "?"
-          }
-          if (selected_chords[j]>=0)
-          {
-            if(chord != chords[selected_chords[j]])
-            { 
-              valid_songs[i] = 0
-              n_valid_songs = n_valid_songs - 1
-            }
-          }
-        }
-      }
-    }
-  }
-
-
-  var songs_id = new Array(n_valid_songs)
-
-  function display_valid_songs()
-  {
-    x = 10
-    y = 0
-    
-    j = 0
-    songs_group.selectAll("*").remove()
-    for(i = 0;i<n_songs;i++)
-    {
-      if(valid_songs[i]==1)
-      {
-        songs_id[j] = i
-        songs_group.append("text").transition()
-          .attr("x",x)             
-          .attr("y",y)
-          .attr("text-anchor", "central")  
-          .attr("dominant-baseline", "text-before-edge")
-          .style("font-size", 0.8*font_size)
-          .text(data[i]["Artist"] + " - " + data[i]["Title"])
-          .attr("class","unclickable").duration(transition_duration);
-        songs_group.append("rect")
-          .attr("width",(w-margin.right)-(boxes_x_1+2*boxes_width_1)-20)
-          .attr("height",20)
-          .attr("x",0)             
-          .attr("y",y)
-          .attr("fill",select_color)
-          .attr("fill-opacity",0)
-          .attr("stroke","blue")
-          .data("")
-        songs_group.selectAll("rect")
-          .on("click", function(k,l){
-            console.log(selected_song,songs_id[l])
-            if (selected_song == songs_id[l])
-            {
-              selected_song = -1
-              songs_curves[songs_id[l]]
-              .selectAll("path")
-              .transition()
-              .style("stroke-opacity",curves_opacity)
-              .style("stroke","grey")
-              .duration(transition_duration)
-              d3.select(this).attr("fill-opacity",0)
-            }
-            else
-            {
-              selected_song = songs_id[l]
-              
-              songs_group.selectAll("rect").each(function(m,n){
-                console.log(n)
-                d3.select(this).attr("fill-opacity",0)
-                songs_curves[songs_id[n]]
-                .selectAll("path")
-                .transition()
-                .style("stroke-opacity",curves_opacity)
-                .style("stroke","grey")
-                .duration(transition_duration)
-              })
-              songs_curves[songs_id[l]]
-              .selectAll("path")
-              .transition()
-              .style("stroke-opacity",3)
-              .style("stroke",select_color)
-              .duration(transition_duration)
-              d3.select(this).attr("fill-opacity",0.3)
-            }
-          })
-        j = j+1
-        y = y+20
-      }
-    }
-  };
-
-  display_valid_songs()
-
-  
-  
-
-
-  function display_artists()
-  {
-    x = 10
-    y = 0
-    artists_group.selectAll("*").remove()
-    last_artist = ""
-    for(i = 0;i<n_artists;i++)
-    {
-        artists_group.append("text").transition()
-          .attr("x",x)             
-          .attr("y",y)
-          .attr("text-anchor", "central")  
-          .attr("dominant-baseline", "text-before-edge")
-          .style("font-size", 0.8*font_size)
-          .text(artists[i])
-          .attr("class","unclickable")
-          .duration(transition_duration);
-        artists_group.append("rect")
-          .attr("width",(w-margin.right)-(boxes_x_1+2*boxes_width_1)-20)
-          .attr("height",20)
-          .attr("x",0)             
-          .attr("y",y)
-          .attr("fill",select_color)
-          .attr("fill-opacity",0)
-          .attr("stroke","blue")
-          .data("")
-        artists_group.selectAll("rect")
-          .on("click", function(k,l)
-          {
-            artist = artists[l]
-            if (artist == selected_artist)
-            {
-              selected_artist = "All Artists"
-              d3.select(this).attr("fill-opacity",0)
-            }
-            else
-            {
-              
-              artists_group.selectAll("rect").each(function()
-              {
-                d3.select(this).attr("fill-opacity",0)
-              })
-              d3.select(this).attr("fill-opacity",0.3)
-              selected_artist = artist
-            }
-            selected_song = -1
-            update_valid_songs()
-            display_valid_songs()
-            update_curves()
-          })
-        y = y+20
-      }
-    }
-
-
-
-  display_artists()
-  
-    
-  // On stocke les accords sur lesquels on a cliqué
-  var selected_chords = new Array(16)
-  for (i=0;i<16;i++)
-  {
-    selected_chords[i] = -1
-  }
-  
-
-  // Une fonction qui gère la mise à jour des courbes quand on sélectionne / déselectionne un accord
-  function update_curves()
-  {
-    curves_opacity = min_curves_opacity + (1-n_valid_songs/n_songs);
-    console.log(a)
-    for (i = 0;i<n_songs;i++)
-    {
-      if (i==selected_song)
-      {
-        songs_curves[i]
-        .selectAll("path").moveToFront();
-      }
-      if (valid_songs[i] == 0)
-      {
-        songs_curves[i]
-        .selectAll("path")
-        .transition()
-        .style("stroke-opacity",0)
-        .duration(transition_duration)
-      }
-      else
-      {
-        songs_curves[i]
-        .selectAll("path")
-        .transition()
-        .style("stroke-opacity",curves_opacity)
-        .style("stroke",curves_color)
-        .duration(transition_duration)
-      }
-    }
-  
-  }
-  
-  // On parcourt les chansons et on créé pour chaque chanson l'ensemble de ses courbes
-  data.forEach(function(d,i)
-  {
-    
-    for (bar = 1; bar<8;bar++)
-    {
-      current_chord = get_chord(i,bar)
-      next_chord = get_chord(i,bar+1)
-      chord_id = chords.indexOf(current_chord)
-      next_chord_id = chords.indexOf(next_chord)
-      x = margin.left+(horizontal_padding+rectangle_width)*(bar-1)
-      y = margin.top + (1-diagram_height_ratio)*height + (rectangle_height + vertical_padding) *  chord_id
-      y2 = margin.top + (1-diagram_height_ratio)*height + (rectangle_height + vertical_padding) * next_chord_id
-      line_data = 
-            [{song_id: i,x:x+rectangle_width,y:y+rectangle_height/2},{song_id: i,x:x+rectangle_width+0.1*horizontal_padding,y:y+rectangle_height/2},
-            {song_id: i,x:x+rectangle_width+0.9*horizontal_padding,y:y2+rectangle_height/2},
-            {song_id: i,x:x+rectangle_width+horizontal_padding,y:y2+rectangle_height/2}]
-          a = min_curves_opacity + (1-n_songs/n_songs);
-          line = 
-          songs_curves[i].append("path")
-            .datum(line_data)
-            .attr("class", "line")
-            .attr("class","unclickable")
-            .attr("fill","none")
-            .style("stroke",curves_color)
-            .style("stroke-opacity",a)
-            .style("stroke-width",curves_width)
-            .attr("d", d3.line()
-                         .curve(dacurve.d3Curve)
-                         .x(function(d) { return d["x"]; })
-                         .y(function(d) { return d["y"]; }))
-            .on("click",function(curve_data){})
-    }
-    for (bar = 9; bar<16;bar++)
-    {
-      current_chord = get_chord(i,bar)
-      next_chord = get_chord(i,bar+1)
-      chord_id = chords.indexOf(current_chord)
-      next_chord_id = chords.indexOf(next_chord)
-      x = margin.left+(horizontal_padding+rectangle_width)*(bar-1)
-      y = margin.top + (1-diagram_height_ratio)*height + (rectangle_height + vertical_padding) *  chord_id
-      y2 = margin.top + (1-diagram_height_ratio)*height + (rectangle_height + vertical_padding) * next_chord_id
-      line_data = 
-            [{song_id: i,x:x+rectangle_width,y:y+rectangle_height/2},{song_id: i,x:x+rectangle_width+0.1*horizontal_padding,y:y+rectangle_height/2},
-            {song_id: i,x:x+rectangle_width+0.9*horizontal_padding,y:y2+rectangle_height/2},
-            {song_id: i,x:x+rectangle_width+horizontal_padding,y:y2+rectangle_height/2}]
-          a = min_curves_opacity + (1-n_songs/n_songs);
-          line = 
-          songs_curves[i].append("path")
-            .datum(line_data)
-            .attr("class", "line")
-            .attr("class","unclickable")
-            .attr("fill","none")
-            .style("stroke",curves_color)
-            .style("stroke-opacity",a)
-            .style("stroke-width",curves_width)
-            .attr("d", d3.line()
-                         .curve(dacurve.d3Curve)
-                         .x(function(d) { return d["x"]; })
-                         .y(function(d) { return d["y"]; }))
-            .on("click",function(curve_data){})
-    }
-  })
-
-
-    // On créé les carrés correspondant aux accords
-    chords.forEach(
-      function(c,i){
-        bars_id.forEach(function(b,j){
-          
-          var x = margin.left+(horizontal_padding+rectangle_width)*j
-          var y = margin.top + (1-diagram_height_ratio)*height + (rectangle_height + vertical_padding) * i
-          var rect_data = [{chord: i,bar: j}]
-          
-          // On affiche le nom de l'accord
-          unclickable_elements.append("text")
-    				.attr("x", (x+rectangle_width/2))             
-    				.attr("y", (y + rectangle_height/2))
-    				.attr("text-anchor", "middle")  
-          	.attr("dominant-baseline", "central")
-    				.style("font-size", font_size)
-    				.text(c);
-          	
-          	// On créé un rectangle transparent au dessus du texte 
-            bars[j].append('rect')
-            .attr("x",x)
-            .attr("y",y)
-            .attr("width",rectangle_width)
-            .attr("height",rectangle_height)
-            .attr("fill","pink")
-            .attr("fill-opacity",0)
-            .attr("stroke","blue")
-            .data(rect_data)
-            .on("click",function(d){
-                bars[j].selectAll("rect").each(function(dr)
-                {
-                  if (dr["chord"]!=d["chord"])
-                    {
-                      d3.select(this).attr("fill-opacity",0)
-                      .attr("stroke","blue")
-                    }
-                })
-                if(selected_chords[j]!=d["chord"])
-                  {
-                  d3.select(this).attr("fill-opacity",0.5)
-                  .attr("stroke","red")
-                  selected_chords[j] = d["chord"]
-                  }
-                else
-                  {
-                  d3.select(this).attr("fill-opacity",0)
-                  .attr("stroke","blue")
-                  selected_chords[j] = -1
-                  }
-                
-            update_valid_songs()
-            update_curves()
-            display_valid_songs()
-            
-            });
-          		
-         })
-      })
-   
-   });
-  </script>
-</body>
+<html>
+	<head>
+		<title>DataViz</title>
+		<link <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+		<style>
+			/*.cerc {
+			stroke-width: 8px;
+			stroke: #80ced6;
+			}*/
+			.unclickable {
+			pointer-events: none;
+			background-color:#fefbd8;
+			}
+			.ticks {
+			font: 10px sans-serif;
+			}
+			}
+			.track,
+			.track-inset,
+			.track-overlay {
+			stroke-linecap: round;
+			}
+			}
+			.track {
+			stroke: #000;
+			stroke-opacity: 0.3;
+			stroke-width: 10px;
+			}
+			.track-inset {
+			stroke: #ddd;
+			stroke-width: 8px;
+			}
+			.track-overlay {
+			pointer-events: stroke;
+			stroke-width: 50px;
+			stroke: transparent;
+			cursor: crosshair;
+			}
+			.handle {
+			fill: #fff;
+			stroke: #80ced6;
+			stroke-opacity: 0.5;
+			stroke-width: 2px;
+			}
+			}
+			body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+		</style>
+	</head>
+	<body style="background-color:white;">
+		<div>
+			<h1 style="font-size:110%; text-align:center; font-family:courier; background-color:powderblue; color:Black;"> <img src="guitare.gif" alt="guitare" style="width:90px;height:90px;">Visualization of the sequence of chords <img src="music.gif" alt="music" style="width:90px;height:90px;"></h1>
+		</div>
+		<div style="text-align: center">
+			<legend> <strong> Choice of filters </strong> </legend>
+			<span>
+				<label for="song" style="background-color:pink; font-family:courier;"><em><strong>SONGS</strong></em></label>
+				<select name="song" id="song" class="search" style="width: 20%">
+				</select>
+			</span>
+			<span>
+				<label for="artist" style="background-color:powderblue; font-family:courier;"><em><strong>ARTISTS</strong></em></label>
+				<select name="artist" id="artist" class="search" style="width: 20%">
+				</select>
+			</span>
+			<span>
+				<label for="genre" style="background-color:gray; font-family:courier;"><em><strong>GENRE</strong></em></label>
+				<select name="genre" id="genre" class="search" style="width: 20%">
+				</select>
+			</span>
+		</div>
+		<div id="chart" style="border:2.5px solid powderblue;">
+			<script src="antViz.js"></script>
+			<script>
+				d3.csv('data_clean_no7.csv',data => antViz(data));
+			</script>
+		</div>
+	</body>
+	<mark> <h1 style="font-size:130%; text-align:center; font-family:courier; background-color:powderblue; color:Black;"> <img src="Logo.png" style="width:200px;height:25px;"> </h1> </mark>
+	<script>
+		$(document).ready(function() {
+			$('.search').select2();
+		});
+	</script>
+</html>
