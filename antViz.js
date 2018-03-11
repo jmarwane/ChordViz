@@ -96,8 +96,9 @@ function antViz(data) {
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "central")
         .style("font-size", 1.5 * font_size)
-        .style("stroke", "brown")
+        .style("stroke", "black")
         .text("VERSE")
+        .attr("font-family", "Myriad Pro")
         .attr("class", "unclickable");
     svg.append("rect")
         .attr("width", boxes_width_1)
@@ -114,8 +115,9 @@ function antViz(data) {
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "central")
         .style("font-size", 1.5 * font_size)
-        .style("stroke", "brown")
+        .style("stroke", "black")
         .text("CHORUS")
+        .attr("font-family", "Myriad Pro")
         .attr("class", "unclickable");
     // Des groupes d'éléments, bars[i] contient les rectangles contenant les noms des accords de la mesure i
     var bars = new Array(16)
@@ -478,5 +480,4 @@ function antViz(data) {
             });
     }
     handle_song_selection()
-    console.log(data)
 }
