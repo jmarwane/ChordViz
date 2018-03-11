@@ -200,10 +200,11 @@ Your comments and suggestions were really important for us to arrive at the fina
 Please find in the following file: "UpData.md":(https://www.github.com/jmarwane/ChordViz/blob/master/design/UpDate.md)
 details on improvement points made.
 ## Link to video:
+
 [Here it is !! Thanks you for watching and feel free to ask us](https://www.youtube.com/watch?v=3WGgQxnGbuw&feature=youtu.be)
 
   </p>
-<a href="https://www.youtube.com/watch?v=3WGgQxnGbuw&feature=youtu.be">
+<a href="https://www.youtube.com">
 <figure>
   <p align="center"> <img src="/Img_project_final/youtube.JPG" width=80% />
 </figure>
@@ -213,8 +214,9 @@ details on improvement points made.
     <p align=justify>
 </p>
 
-  . Conclusion
+## Conclusion:
   
-  . Resources
+## Resources:
+ .  https://syntagmatic.github.io/parallel-coordinates/
 
 
