@@ -47,7 +47,7 @@ As part of the improvement, our application allows the search of artists using a
 </table>
 
 3/- Ability to click on n agreement and get all the songs that use this chord:
-By clicking on a series of chords, the application displays all the chonsans that contain the chosen chords
+By clicking on a series of chords, the application displays all the songs that contain the chosen chords.
  <table border="0">
   <tr>
     <td>
@@ -56,7 +56,7 @@ By clicking on a series of chords, the application displays all the chonsans tha
   </tr>
   <tr>
     <td align="center">
-      <h6> Improved visualization quality </h6>
+      <h6> Songs contain the chosen chords. </h6>
     </td>
   </tr>
 </table>
