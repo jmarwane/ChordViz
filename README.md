@@ -315,11 +315,7 @@ the application allows the user to click on the chords that he wants to display 
 [Here it is !! Thanks you for watching and feel free to ask us](https://www.youtube.com)
 
   </p>
-<a href="https://www.youtube.com">
-<figure>
-  <p align="center"> <img src="/Img_project_final/youtube.JPG" width=80% />
-</figure>
-</a>
+<iframe src="https://drive.google.com/file/d/1cKE___X-IDawzwk-W1w0SYpCABuhSL_n/preview" width="640" height="480"></iframe>
 
 <p align="center"> <i>Youtube </i> </p>
     <p align=justify>
