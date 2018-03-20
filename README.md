@@ -312,14 +312,7 @@ the application allows the user to click on the chords that he wants to display 
 
 ## Link to video:
 
-[Here it is !! Thanks you for watching and feel free to ask us](https://www.youtube.com)
-
-  </p>
-<iframe src="https://drive.google.com/file/d/1cKE___X-IDawzwk-W1w0SYpCABuhSL_n/preview" width="640" height="480"></iframe>
-
-<p align="center"> <i>Youtube </i> </p>
-    <p align=justify>
-</p>
+[Here it is !! Thank you for watching and feel free to ask us](https://drive.google.com/file/d/1cKE___X-IDawzwk-W1w0SYpCABuhSL_n/view?usp=sharing)
 
 ## Conclusion:
   This project allowed us to master the notion of data interactions and apply the D3.js framework in order to visualize the musics chords progression that are in a database. The suggestions offered during the presentation allowed us to improve the functionality of our application. This project was an opportunity to use different techniques such as : Bootstrap, Html5, Css3, Java script and to understand the technical operation of the BI tool "Tableau Public" after its use in the first TP. Our app is dedicated to people passionate about learning instruments and exactly meets their needs.
